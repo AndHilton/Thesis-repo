@@ -1,0 +1,253 @@
+\documentclass[condensed]{union-cs-thesis}
+
+% made a fresh document to write the draft
+
+\usepackage{graphicx}
+\usepackage[hidelinks]{hyperref}
+\usepackage{cite}
+
+% these packages are being used to allow for margin notes for editing
+\usepackage{marginnote}
+\usepackage[top=1.5cm, bottom=1.5cm, outer=5cm, inner=2cm,
+  heightrounded, marginparwidth=4cm, marginparsep=.5cm]{geometry}
+% new command that makes leaving notes in the margin a little more friendly
+\newcommand{\editnote}[2]{\marginnote{\footnotesize #1}[#2]}
+  
+
+%\graphicspath{./images/}https://preview.overleaf.com/public/jfrqpjrmtgyz/images/6b502d7641596bc8fc5625d0a458ebb8588298ac.jpeg
+
+%------------------------------------------------------------
+\begin{document}
+
+\title{Generative Models of Biological Ontogeny:\\\Large Evolving ``Skate Guts''}
+\author{Andrew Hilton}
+\date{\today}
+
+\maketitle
+
+\editnote{not really sure if I should be capitalizing Generative Encoding and Genetic Algorithm
+  throughout}{0cm}
+%------------------------------------------------------------
+\begin{abstract}
+\makeabstract
+
+\textbf{TODO: Rewrite the Abstract. This is a \emph{really} rough draft of the abstract}
+
+\vspace{.5cm}
+Genetic Algorithms ({\em GAs}) have been proven to be incredibly powerful tools in many different areas,
+from creating novel designs to automatically generating solutions to complex computational problems.
+Biological studies especially have found a lot of applications for genetic algorithms.  One possible
+use is in evolving models of developing biological systems.  I hope to be able to use Generative
+Encodings in order to accurately model the development of skate intestines.
+
+\end{abstract}
+
+%------------------------------------------------------------
+\section{Introduction}
+
+\textbf{TODO: Rewrite Intro.  This is the intro I gave to Aaron a couple of weeks ago.  I need to sit
+  down and sort through his comments, and also revisit this myself but for now I think I want to get
+  some comments on the rest of the proposal.  Some of this information is actually inaccurate, so I
+  really just putting this in here to start to fill up the space a little more}
+
+\vspace{.5cm}
+As the power of our medical technology has increased, so to has our ability to understand the workings
+of Biological Systems. Many things that previously would have been impossible to model, or even observe, 
+have become simple tasks with modern advancements in medical imaging. One such area is the evolution
+of animal digestive systems over the course of their early development. An animal with some particularly
+interesting insides is that of the Skate, a type of kite-like fish similar to a Manta-Ray
+\footnote{to add: skate picture}.
+\par
+Skates are particularly intriguing based on their age (clocking in at nearly \emph{4.5 billion years})
+and their diet. Like Humans, Skates' diets are very high in protein, which is a notoriously difficult
+group of macro-molecules to digest, requiring a lot of surface area to absorb the necessary nutrients.
+Humans evolved to solve this problem by having long digestive tracts, that coil around themselves for
+more than twice ouraverage height.  Skates however, did not have this luxury during their evolution.
+Being invertabrates, with no real bones in their body, their adbominal cavity (the space inside them)
+is not large enough to supporta long, coiled digestive system. Instead, they developed a small
+intestinal organ that spirals around withinitself in order to provide the necessary surface area
+\footnote{to add: picture of skate guts}.
+
+\par
+\emph{It might be worth introducing the concept of genetic algorithms in general either here or in
+  the related  works section.  That would be something to talk about with Aaron}
+
+\par
+Using CAT scans, it is possible to create 3D models of these systems, even during the embryonic phases
+of development.Seemingly in order to model the full development of the digestive systems throughout this
+time, it wouldbe necessary to take near constant scans of the embryo throughout.  However, using the
+concepts of Genetic Algorithms it may be possible to forgo much of that process, by ``evolving'' models
+as opposed to scanning them.  A lot of work has been dfone in using Generative Representations to create
+new models for practical applications\cite{rieffel2009automated}, as well as more novel creations
+\cite{hornby2004functional}, even to model simplerartificial biological structures
+\cite{toussaint2003demonstrating}.  By applying these techniques to a model of ``skate guts'' and then
+evolving its structure, it may be possible to simulate and model the full developmentof the system,
+using only a small number of reference models.
+
+%------------------------------------------------------------
+\section{Related Works}
+
+\par
+While the use of Genetic Algorithms is nothing new within the field of Computer Science, and their
+applications are continually being investigated and expanded upon, this particular type of application
+appears to be largely unexplored.  Even though GAs have long been used in various fields, and Biology
+is far from being an exception, it does not appear as though much research has been done into
+creating evolutionary representations of developing biological systems.  However much work has been
+done in exploring the potential uses of Generative Encodings.  Various investigations in the field of
+robotics have shown that Generative Encodings can be used to develop novel designs for soft-robots
+\cite{rieffel2009automated},
+as well as generating designs for antennae to be used in various satellite
+\cite{lohn2005evolved}.
+As was shown in Greg Hornby's work in developing a system for the creation of novel table designs, the
+core concept behind Generative Encodings allows for the system to evolve encodings that are much more
+complex, and as a general rule much more viable in terms of matching the physical constraints of the
+objects themselves
+\cite{hornby2004functional,hornby2001advantages}.
+
+\par
+\editnote{Not really sure if I want to include this paragraph on Bongard as I don't really know
+  how related it is to my topic overall.  I do think it is interesting to see that the idea of
+  ontogeny already was being used in genetic representations, but this is mostly related by conflation
+  of meaning.  Probably will take it out next draft, just wanted to get some of these thoughts on paper}
+{-3cm}
+Some of the work done by Josh Bongard deals with an interesting subset of evolutionary design,
+namely the area of ``artificial ontogeny,'' i.e. using the concepts of generative encoding to find
+solutions to various tasks by evolving artificial pseudo-organisms
+\cite{bongard2002evolving}.
+Despite it's surface-level relation to my topic area, most of Bongard's work has been in the field
+of modular robotics, which uses small identical robotic ``cells'' to create functional multi-celled
+robots that are capable of self-modifying in order to adapt to different situations.  While this is
+not directly related to the proposed project, it is interesting to see that the idea of ontogeny is
+already being used in the field of evolutionary representations.
+
+\par
+Despite this specific type of problem not being widely investigated, some of the work done by Marc
+Toussaint has some overlap with the type of work planned for this project.
+\editnote{Don't really like the start to this paragraph, but will revise later}{0cm}
+Toussaint's study hasshown that evolving a grammar-based encoding of artificial plants produces more
+effective solutionswithin fewer generations on average than a direct encoding
+\cite{toussaint2003demonstrating}.\footnote{in this case the ``problem'' that solutions were trying to
+  solve was how to maximize the plant's exposure to the sun}
+The underlying thought behind the work done by Toussaint was the idea that a single phenotype
+\footnote{the physical manifestation of genetic encoding}
+could be represented by more than one genotype.
+\footnote{a string of genetic information, a specific type of gene}
+Toussaint was able to show that using a Genetic Encoding of an object allowed for multiple solutions
+of similar shape be evolved, while having different underlying genetic represenations.  His work also
+showed that using Generative Representations increased the overall effectiveness of the evolved
+solutions, generating more fit solutions within fewer generations.  This lends itself to the strength
+of Generative Encodings in regards to the proposed project, as the desired phenotype is already more
+or less known, so the question lies more in what are the genotypes that lead to this trait.  Toussaint's
+work also deals with grammar-based representations, which are of interest as we look to model the full
+development of the skate intestine.  However the representations of plants he uses may be too simple
+to be fully translatable to the more complex shapes of the skate organs.
+
+%------------------------------------------------------------
+\section{Planned Work}
+
+%---------------------------------------------
+\subsection{Approach}
+\editnote{I don't really know how much more I can say about the approach without specifics about the
+  actual system/approach I will be using to make the models}{0cm}
+
+At this point I have a fairly strong idea of the overall goal of the project, but the specifics of how
+to approach actually creating the evolvable models will take some dedicated research.  Due to the nature
+of the project, a lot of the work to be done is in deciding how to create the representations of the
+models.  There are many methods that are used in the creation of Generative Encodings.  Some of them
+range from more mathematical representations that rely on graphs where nodes and the vertices between
+them represent links between different parts of the structure
+\cite{rieffel2009automated}.
+This type of representation is more applicable to the problem space of designing tensegrities.
+One of the more classic examples is the  grammar-based, turtle representation.  In this method a
+grammar of actions is defined, and sentences within this grammar dictate the path that will be taken by
+a ``turtle,'' which places 3D building blocks as it travels
+\cite{hornby2004functional}.
+There are other forms of grammar representations that don't strictly rely on the turtle method
+\cite{toussaint2003demonstrating},
+however many of the forms that are created through these grammar defined representations are either
+too simple or too rigid to be of use for our needs, though there is still a lot of investigation to be
+done before this can be determined.  Another type of representation that shows some potential are
+\emph{Compositional Pattern-Producting Networks} (or CPPN)
+\cite{clune2010investigating}.
+\footnote{These are a form of Neural Network that uses linear combinations of Sigmoid and Gaussian
+  functions torepresent complex patterns.  This type of network is used in the HyperNEAT program.}
+
+\par
+The first real step for my project will be in investigating through further research and my own
+experimentation which type of tools and representation will be best suited for my project.  Once
+this has been decided the next step would be to begin running tests, to see what kind of initial shapes
+get evolved.  I am interested in investigating whether or not the evolutionary constraint that is
+believed to have led to the particular shape that is observed in skates
+\footnote{they need a lot of internal surface area, but have confined possible volume}
+can actually be used to evolve similar shapes in the context of a Generative Encoding.  Therefore in
+the initial runs, the evolvedmodels will be fitness-tested by a fairly simple geometric relation between
+the volume occupied by the shape, and the internal surface area contained within the volume.  The hope
+is that this will lead to twisted, spiraling shapes, like those seen in skate intestines.  Following
+these initial runs (which will most likely require some kind of fine-tuning in the initial stages), I
+will continue to refine the algorithm I am using by altering the fitness function used to evaluate the
+models, but also making alterations to the representation itself based on the results of previous runs.
+I will continue this process of doing runs and refining until I am satisfied that I am ready to start
+doing analysis on my models in comparison to the models produced by the Biology department.
+
+%---------------------------------------------
+\subsection{Evaluation}
+\editnote{I can't really tell to what extent I am ``experimenting'' for this project, as in most
+  of the studies I have read dealing with this kind of topic have done some kind of comparison
+  between the effectiveness of an evolved direct encoding vs. a Generative Encoding.  I guess in my
+  situation the comparison to judge the effectiveness is just going to be based on the geometric
+  analysis because there will already be a ``control'' of sorts in the form of the scan-based models}
+  {0cm}
+
+  Given that, unlike a lot of the notable work done with Generative Encodings, there is a real,
+  observable, biological counterpart
+  \footnote{with their own 3D models}
+  to the models I will be developing, the evaluation of my work will be fairly straightforward to
+  a degree.  When Professor Theodosiou and her students have finished performing their scans and
+  generating the 3D models of the physical skate intestines, I will be able to directly compare my
+  evolved models to theirs.  The challenge to this part of the process will be in determining the best
+  course of action to perform this comparative analysis.  There have been some papers within the
+  field of Mathematics that were written with the intent of developing a methodology of performing
+  geometric comparative analysis of 3D objects in order to compare their ``likeness''
+  \cite{shum1996:3d}.
+  It is not clear to me at this time as whether or not the formulae discussed in the aforementioned
+  paper will be sufficient to provide conclusive results to evaluate the 3D shapes in my project,
+  or if it is even feasible to use such formulae to perform this kind of comparison on shapes of this
+  complexity.  As such, at some point in the future I will be consulting faculty within the Math
+  department here at Union to gather their insight on the best way of approaching this kind of problem.
+
+%------------------------------------------------------------
+\section{Timeline}
+
+Due to the collaborative aspect of my project, I am somewhat bounded by the work that Professor
+Theodosiou and her students are able to do.  Fortunately much of the work they will be doing is
+going to happen over the Summer, and a lot of the early work for my project can be largely
+independent from the models.
+
+\begin{description}
+\item[Fall] During the Fall I will be continuing background research into the topic.  A lot of the
+  research at this point during my project will be in investigating different software and
+  techniques for creating and evolving Generative Encodings.  As stated previously I have encountered
+  a couple of potential systems used by others for somewhat related investigations, so during the
+  Fall I would be doing some experimentation to see which of these could best be adapted for my
+  particular project.
+  \par
+  Once this has been decided I can start running preliminary trials, using simple fitness functions
+  in order to start refining the system.  I will be running multiple trials and making changes to the
+  system.  If by the end of the term I feel confident that I have made significant progress, I will
+  begin consulting some of the Math department faculty to get their insight on how to approach the
+  geometric analysis of the models, in the hope that they will be able to point me in the direction
+  of good resources for those types of problems.
+\item[Winter] Forgoing serious setbacks in their research, Professor Theodosiou and her students
+  will hopefully have completed all of the scans that they need and created the 3D models of the
+  various phases of development that they are hoping to model.  Thus, depending on my progress during
+  the Fall and how far I was able to get in finding a geometric analysis formula, I will begin
+  analyzing all of my runs by comparing the models evolved by my system, and the actual models created
+  from the CT-scans.  Depending on time constraints and the overall progress I have made at this point
+  I will continue refining my system using the geometric analysis to inform my decisions.
+\end{description}
+
+
+\bibliographystyle{plain}
+\bibliography{centralbib}
+
+\end{document}
