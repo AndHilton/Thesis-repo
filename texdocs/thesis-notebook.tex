@@ -67,11 +67,14 @@ Did a quick read-through of John's Face-Encoding Grammar paper \cite{Rieffel:fac
 \begin{itemize}
 \item Signed up for GitHub
 \item Added John's Face-Grammar paper to centralbib
+\item Moved all of my documents into Git Repository
 \end{itemize}
 \subsubsection*{Things I Should Do Today}
 I should setup a weekly meeting time with John, and try to talk with him about the next steps in my project.  Now that I have a GitHub account, I might move this notebook and the work to a repository there so that I can do more stuff from command line, and not have to deal with Overleaf.  If I have time today I am going to try and find some more papers talking about systems for producing Generative Encodings, and add some sections to the notebook about work I did before starting the tex notebook.  Tomorrow I would like to do some more note-taking on papers.
 \subsubsection*{Lab Meeting}
 Frankie talked about noise in simulation.  According to John, Jakobi has a good paper for anyone doing stuff on Genetic Algorithms (Frankie is sending that to me over Slack)
+\subsubsection*{Talk with John}
+After lab meeting today I forced John to talk with me about my project.  He is suggesting that I use the tetrahedral face-grammar \cite{Rieffel:face-grammar} going forward, but that I should port the existing code into python for ease of use.  He is going to send me the C code that he has somewhere, afterwards I am going to rewrite the system in Python.  The basic idea is that the subdivide operation is going to be removed from the grammar for ease of use (it made certain parts to complicated).  After that the basic idea of the system is that there is a queue of the the faces (including labels) and every iteration you dequeue the first face, apply the appropriate rewrite rule and queue that into the next iteration's queue.  The system itself really only needs to concern itself with each face, and the points it is associated with.  This type of system would work well with STL format files, but Blender has some interfacing with Python so it would be good to look at both of those for the visual representation of the grammar.  Next steps are to work on those pieces, and start to come up with questions myself.
 
 % ----------------------------------------------------------
 
