@@ -5,7 +5,7 @@
 % Selected Packages
 % ------------------
 % Allows the use of standalone input documents 
-\usepackage{standalone}
+%\usepackage{standalone}
 % Lets me write the dates nicely
 \usepackage[super]{nth}
 % Basic packages that are good to use
@@ -36,8 +36,8 @@
 \item Read John's paper on the Face-encoding Grammar \cite{Rieffel:face-grammar}
 \item Read the paper Pete sent me on math and stuff
 \item Look at citations of Toussaint's paper
-\cite{toussaint2003demonstrating}
-to see if there has been any work adapting his style of grammar to a similar problem space
+  \cite{toussaint2003demonstrating}
+  to see if there has been any work adapting his style of grammar to a similar problem space
 \item add citations to those reading things, just so everything is nice
 \end{itemize}
 \subsubsection*{Organization}
@@ -62,7 +62,7 @@ Today I would like to read and take notes on the paper outlining John's tetrahed
 \subsection*{Wednesday, October \nth{5}}
 Did a quick read-through of John's Face-Encoding Grammar paper \cite{Rieffel:face-grammar}.  Need to do a more in-depth note-taking read through, but the main focus of the paper seemed to be concerned with simulating the soft robots, not the uses of the grammar itself.  I will have to talk with John in person a little bit more about the grammar
 
-\section*{Thursday, October \nth{6}}
+\subsection*{Thursday, October \nth{6}}
 \subsubsection*{Things I Have Done Today}
 \begin{itemize}
 \item Signed up for GitHub
@@ -74,8 +74,41 @@ I should setup a weekly meeting time with John, and try to talk with him about t
 \subsubsection*{Lab Meeting}
 Frankie talked about noise in simulation.  According to John, Jakobi has a good paper for anyone doing stuff on Genetic Algorithms (Frankie is sending that to me over Slack)
 \subsubsection*{Talk with John}
-After lab meeting today I forced John to talk with me about my project.  He is suggesting that I use the tetrahedral face-grammar \cite{Rieffel:face-grammar} going forward, but that I should port the existing code into python for ease of use.  He is going to send me the C code that he has somewhere, afterwards I am going to rewrite the system in Python.  The basic idea is that the subdivide operation is going to be removed from the grammar for ease of use (it made certain parts to complicated).  After that the basic idea of the system is that there is a queue of the the faces (including labels) and every iteration you dequeue the first face, apply the appropriate rewrite rule and queue that into the next iteration's queue.  The system itself really only needs to concern itself with each face, and the points it is associated with.  This type of system would work well with STL format files, but Blender has some interfacing with Python so it would be good to look at both of those for the visual representation of the grammar.  Next steps are to work on those pieces, and start to come up with questions myself.
+After lab meeting today I forced John to talk with me about my project.	 He is suggesting that I use the tetrahedral face-grammar \cite{Rieffel:face-grammar} going forward, but that I should port the existing code into python for ease of use.  He is going to send me the C code that he has somewhere, afterwards I am going to rewrite the system in Python.  The basic idea is that the subdivide operation is going to be removed from the grammar for ease of use (it made certain parts to complicated).  After that the basic idea of the system is that there is a queue of the the faces (including labels) and every iteration you dequeue the first face, apply the appropriate rewrite rule and queue that into the next iteration's queue.  The system itself really only needs to concern itself with each face, and the points it is associated with.  This type of system would work well with STL format files, but Blender has some interfacing with Python so it would be good to look at both of those for the visual representation of the grammar.  Next steps are to work on those pieces, and start to come up with questions myself.
 
+%----------------------------------------------------------
+
+\section*{Week of October \nth{23}, 2016}
+I have a lot to fill in for stuff but I will get to that eventually.
+
+\subsection*{Tuesday, October \nth{25}}
+Starting to finally get myself organized on doing the actual setup of the grammar system.
+\subsubsection*{Math-stuff}
+\begin{itemize}
+\item figure out the vector from one corner of a face to the center of the triangle
+\item figure out how to find the height of the tetrahedron (gives me the scalar to multiply cross product by)
+\end{itemize}
+\subsubsection*{What I got}
+The overview of my solution of how to calculate the new point after a grow operation has been used.  Pick an edge of the face that is being operated on, and zero it by subtracting the vector from the origin to the corner ($\overrightarrow{p}$).  Next take the cross product of the two vectors that define the edges of the corner. Then multiply that vector by the scalar representing the height of the tetrahedron ($h$) \footnote{make sure that the orthogonal vector is going in the correct direction from the plane}.  Then add the vector to the center of the face ($\overrightarrow{c}$).  This should produce the extended point from the face, after it has been zeroed.  Then re-add the positional vector ($\overrightarrow{p}$) to get the extended vector centered on the original face.
+\par
+Turns out that this approach of taking the cross product, scaling and adding the vector to the center is \textbf{not the right solution}.  The process of finding the vector to the center is exactly the same process as solving for the system of equations where the dot products are $\frac{1}{2}$.  I will explain more below.
+
+\subsection*{Wednesday, October\nth{26}}
+\subsubsection*{I Did It?: Finally solving the Problem of the Grow Operation}
+So it turns out that the worst possible thing that could have happened happened, John was right...  After consulting many math professors \footnote{Prof. Jeff Jauregui, Prof. Brenda Johnson} and several STEM faculty and students \footnote{Shelia Kang, Aaron Cass, Pete Johnorson}, and getting many different potential solutions, through many variations, I was able to arrive at the solution proposed by John (although very indirectly and as vaguely as possible).  I will now attempt to be as exact in defining the solution to the math behind the Grow operation.  I will try and talk through the process it took to arrive at this solution in greater detail at a later date.
+\subsubsection*{The Thorn in My Side}
+Performing the Grow operation on Face $F_0$, defined by the points $V_1, V_2, V_3$, a new point $V_4$ is produced, orthogonal to the plane described by $F_0$.  This produces three new faces $F_1, F_2, F_3$, defined by points $V_1 - V_4$.  $F_0$ is functionally removed from the system.  In order to implement this operation, a way must be found to determine the location of $V_4$, given only the information intrinsic to $F_0$.
+\\
+The approach to this problem relies on finding the vector orthogonal to the plane by taking the cross product of two vectors that describe the originating face.  Then the vector must be scaled by the height of the tetrahedron that will be produced by the new faces, and repositioned to the center of the originating face, producing a point that is perpendicular to the center of the base, and a unit distance away from the three describing points.  An additional positional shift will have to be performed before and after these calculations in order to compensate for the coordinates of the originating face.
+\\
+Below is a more in depth description of the process.
+\\
+\textbf{Disclaimer: This relies on the assumption that the center of an equilateral triangle can be found by taking the average of the 3 points, which I have not verified}
+\\
+Given that $F_0$ is offset from its closest point $V$ to the origin by the vector $\vec{p}$, subtract $\vec{V} - \vec{p}$ to center the point on the origin.  Then define two vectors $\vec{u}, \vec{v}$ from the origin to the other points on the face.  The cross product of these vectors $\vec{u} \times \vec{v}$ produces the vector orthogonal to the plane described by the face.  This is then scaled to be the height of the tetrahedron $h = \sqrt{\frac{2}{3}}$.  This is then added to the vector $\vec{c}$, which is defined as the point at the center of the triangular face \footnote{found by taking the average of the 3 points defining the triangle}.  This should then produce the vector $\vec{w}$ with length $h$, perpendicular to the face, at the point above the center.  The original positional vector $\vec{p}$ is then readded to this value in order to reposition back on the originating face.  Using this newly recentered value for $\vec{w}$ a new vertex can be created, along with three new faces.
+\subsubsection*{Moving Forward}
+Having finished determining the relationships in order to implement the Grow operation I can now start moving forward with the implemention of the system itself.  I will need to find some python packages that will allow me to calculate the cross product (otherwise I must implement that myself) and find some classes for the points and vectors with the necessary operations already implemented.  I can then begin implementing my own additions to the system (i.e. creating the face class, and the actual computational aspect of the system).  I will then work on integrating these structures into an existing modeling software and then begin on implementing the evolutionary component of the project.  I would like to be done with the system implementation and some rudimentary integration with modeling software by the end of the week, so that I can sooner rather than later begin collecting some results.
+    
 % ----------------------------------------------------------
 
 \bibliography{centralbib}
