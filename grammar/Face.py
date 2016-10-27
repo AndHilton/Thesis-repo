@@ -9,11 +9,22 @@ Author: AHilton
 ### ------------------------------------------------------------
 
 import numpy as np
-
+import Vertex
 
 class Face:
 
-#    edges = None
-#    label = None
+    vertices = None
+    label = None
 
-#    def __init__(self,
+    def __init__(self,alabel,vert0,vert1,vert2):
+
+        self.label = alabel
+        self.vertices = [vert0,vert1,vert2]
+
+
+    ##
+    # Changes the label of the face
+    ##
+    def change_label(self,alabel):
+        self.label = alabel
+    
