@@ -9,7 +9,7 @@ Author: AHilton
 ### ------------------------------------------------------------
 
 import numpy as np
-import Vertex
+import math
 
 class Face:
 
@@ -25,6 +25,24 @@ class Face:
     ##
     # Changes the label of the face
     ##
-    def change_label(self,alabel):
+    def changeLabel(self,alabel):
         self.label = alabel
+    
+
+    ##
+    # Calculates the positions of the 2 possible extensions of the face.  Returns the two vertices as a tuple
+    ##
+    def calcExtension(self):
+
+        pVec = self.vertices[0]
+        vertPrime = [vec - pVec for vec in self.vertices]
+        uVec = vertPrime[1]
+        vVec = vertPrime[2]
+        height = math.sqrt(2/3)     # this is for the Python 3 version
+        cVec = sum(vertPrime)/len(vertPrime)
+
+        ortho = np.cross(uVec,vVec)
+        scaleOrtho = ortho/np.linalg.norm(ortho) * height
+        extend = (scaleOrtho + cVec) + pVec
+        return (extend,-extend)
     

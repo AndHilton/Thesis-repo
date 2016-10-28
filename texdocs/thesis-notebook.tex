@@ -76,6 +76,8 @@ Frankie talked about noise in simulation.  According to John, Jakobi has a good 
 \subsubsection*{Talk with John}
 After lab meeting today I forced John to talk with me about my project.	 He is suggesting that I use the tetrahedral face-grammar \cite{Rieffel:face-grammar} going forward, but that I should port the existing code into python for ease of use.  He is going to send me the C code that he has somewhere, afterwards I am going to rewrite the system in Python.  The basic idea is that the subdivide operation is going to be removed from the grammar for ease of use (it made certain parts to complicated).  After that the basic idea of the system is that there is a queue of the the faces (including labels) and every iteration you dequeue the first face, apply the appropriate rewrite rule and queue that into the next iteration's queue.  The system itself really only needs to concern itself with each face, and the points it is associated with.  This type of system would work well with STL format files, but Blender has some interfacing with Python so it would be good to look at both of those for the visual representation of the grammar.  Next steps are to work on those pieces, and start to come up with questions myself.
 
+\subsection{Where did that algorithm type-up go?}
+
 %----------------------------------------------------------
 
 \section*{Week of October \nth{23}, 2016}
@@ -133,6 +135,16 @@ I think the next step is to finish implementing the face and vertex classes, tes
 \item Should the initial setup of a tetrahedron rely on the grow operation?  That would basically bring the amount of information needed to initially setup the system would be initializing a single face, and picking a direction for the cross product.
 \item How will the positional vector $\vec{p}$ be determined?  Initially I figured it should just be the one closest to the origin, but would that make the calculation more difficult if that cross product goes in the ``wrong direction''?  I think the best way of doing this would be to find the normalized cross product, and multiply it by $h$ and $-h$, in order to find both directions.  Intuitively it seems like the vertex extension calculations in this case would produce 2 vertices, one that already existed (opposite the face being operated on) and one that does not, which is the new one that gets produced by the operation.  However there may be some problems if somehow two faces end up being parallell to each other.  I don't actually know if it is possible to have that kind of collision in a tetrahedral mesh system, that might be why people like them.
 \end{itemize}
+
+
+\subsection{Friday, October \nth{28}}
+
+\subsubsection{Work I've done today}
+Today I was mainly working on implementing the 3D grammar.  I think that I have finished working on the Face class, and I am considering just getting rid of the Vertex class because it doesn't really add anything functionally, and it creates another level of abstraction that I just end up ignoring because I have to have access to the array objects themselves because I rely heavily on their operations.  The way that I am currently doing the calculations for the Grow operation is by delegating the calculation of the points to the Faces themselves, returning both options (the negative and positive direction) and figuring out which one is already in existence in the system, and then just working with the other one.  I want to be mostly, if not all done with implementing the back end of the grammar system by tonight, so that way I can work on interfacing with the 3D modeling software and hopefully have that finished by Monday.
+\par
+I need to re-type the algorithm in this notebook just so that I can have it in writing (I also think that I at some point got rid of a few lines in the notebook) \footnote{I think I forgot to push from my laptop at somepoint}.
+
+
 
 
 % ----------------------------------------------------------
