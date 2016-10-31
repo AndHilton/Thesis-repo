@@ -27,7 +27,12 @@ class Face:
     ##
     def changeLabel(self,alabel):
         self.label = alabel
-    
+
+    ##
+    # Returns the list of vertices
+    ##
+    def getVertices(self):
+        return self.vertices
 
     ##
     # Calculates the positions of the 2 possible extensions of the face.  Returns the two vertices as a tuple

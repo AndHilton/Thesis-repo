@@ -143,6 +143,8 @@ I think the next step is to finish implementing the face and vertex classes, tes
 Today I was mainly working on implementing the 3D grammar.  I think that I have finished working on the Face class, and I am considering just getting rid of the Vertex class because it doesn't really add anything functionally, and it creates another level of abstraction that I just end up ignoring because I have to have access to the array objects themselves because I rely heavily on their operations.  The way that I am currently doing the calculations for the Grow operation is by delegating the calculation of the points to the Faces themselves, returning both options (the negative and positive direction) and figuring out which one is already in existence in the system, and then just working with the other one.  I want to be mostly, if not all done with implementing the back end of the grammar system by tonight, so that way I can work on interfacing with the 3D modeling software and hopefully have that finished by Monday.
 \par
 I need to re-type the algorithm in this notebook just so that I can have it in writing (I also think that I at some point got rid of a few lines in the notebook) \footnote{I think I forgot to push from my laptop at somepoint}.
+\par
+the next thing that I need to figure out for the next part of the system is how to implement the actual grammar production part of the system.  I could either implement it as a script that runs for a given number of generations, using a given configuration, with a given set of production rules.
 
 
 

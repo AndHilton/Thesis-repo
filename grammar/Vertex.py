@@ -5,6 +5,8 @@ that make up the faces and bodies in the system.  They are represented
 in 3D space, and therefore have x,y,z components
 
 Author : AHilton
+
+DEPRECATED
 """
 ### ------------------------------------------------------------
 
