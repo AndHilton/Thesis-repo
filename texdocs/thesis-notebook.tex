@@ -93,7 +93,7 @@ Starting to finally get myself organized on doing the actual setup of the gramma
 \subsubsection*{What I got}
 The overview of my solution of how to calculate the new point after a grow operation has been used.  Pick an edge of the face that is being operated on, and zero it by subtracting the vector from the origin to the corner ($\overrightarrow{p}$).  Next take the cross product of the two vectors that define the edges of the corner. Then multiply that vector by the scalar representing the height of the tetrahedron ($h$) \footnote{make sure that the orthogonal vector is going in the correct direction from the plane}.  Then add the vector to the center of the face ($\overrightarrow{c}$).  This should produce the extended point from the face, after it has been zeroed.  Then re-add the positional vector ($\overrightarrow{p}$) to get the extended vector centered on the original face.
 \par
-Turns out that this approach of taking the cross product, scaling and adding the vector to the center is \textbf{not the right solution}.  The process of finding the vector to the center is exactly the same process as solving for the system of equations where the dot products are $\frac{1}{2}$.  I will explain more below.
+Turns out that this approach of taking the cross product, scaling and adding the vector to the center is \textbf{not the right solution}.  The process of finding the vector to the center is exactly the same process as solving for the system of equations where the dot products are $\frac{1}{2}$.  I will explain moren below.
 
 \subsection*{Wednesday, October\nth{26}}
 \subsubsection*{I Did It?: Finally solving the Problem of the Grow Operation}
@@ -137,9 +137,9 @@ I think the next step is to finish implementing the face and vertex classes, tes
 \end{itemize}
 
 
-\subsection{Friday, October \nth{28}}
+\subsection*{Friday, October \nth{28}}
 
-\subsubsection{Work I've done today}
+\subsubsection*{Work I've done today}
 Today I was mainly working on implementing the 3D grammar.  I think that I have finished working on the Face class, and I am considering just getting rid of the Vertex class because it doesn't really add anything functionally, and it creates another level of abstraction that I just end up ignoring because I have to have access to the array objects themselves because I rely heavily on their operations.  The way that I am currently doing the calculations for the Grow operation is by delegating the calculation of the points to the Faces themselves, returning both options (the negative and positive direction) and figuring out which one is already in existence in the system, and then just working with the other one.  I want to be mostly, if not all done with implementing the back end of the grammar system by tonight, so that way I can work on interfacing with the 3D modeling software and hopefully have that finished by Monday.
 \par
 I need to re-type the algorithm in this notebook just so that I can have it in writing (I also think that I at some point got rid of a few lines in the notebook) \footnote{I think I forgot to push from my laptop at somepoint}.
@@ -147,6 +147,13 @@ I need to re-type the algorithm in this notebook just so that I can have it in w
 the next thing that I need to figure out for the next part of the system is how to implement the actual grammar production part of the system.  I could either implement it as a script that runs for a given number of generations, using a given configuration, with a given set of production rules.
 
 
+% ------------------------------------------------------------
+
+\section*{Week of October \nth{30}, 2016}
+
+\subsection*{Sunday, October \nth{30}}
+
+Today I mostly worked on testing the math behind the Face cacluations, to see if it worked with the modules I was using.  I discovered a slight rounding error in the calcExtension function of the Face class, but it was very miniscule\footnote{somewhere in the $10^{-17}$th place}.  I was able to circumvent this issue by switching from testing equality, to just checking to see if two points were in a threshold of each other.  This was done by finding the length of $\vec{A} - \vec{B}$.  After I was done with testing I started working on the modeling functionality.  I started off by looking into STL formatting, and seeing if I could convert my data into meshes.  This seemed kind of promising, except that the module I found to help with this was \textbf{A)} not well documented and hard to understand, \textbf{B)} it wasn't compatible with Python 3, which is what I plan on writing the rest of the system in anyways, and \textbf{C)} the program I would use to open and view the stl files would most likely be Blender, which has a lot of builtin Python compatability.  This lead me to investigate the Python API for Blender, which looks promising.  I will have to spend some time figuring out the best way to approach the problem from this side, and it may turn out that the STL formatting stuff is just the right level of complexity and extendibility that I am looking for.  Though if I do end up moving forward with the blender approach, and I end up needing an stl down the line, I can just use the Blender tools to export as an STL.
 
 
 % ----------------------------------------------------------
