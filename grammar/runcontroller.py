@@ -11,6 +11,7 @@ import numpy as np
 from Face import Face
 from GrammarRun import GrammarRun as GR
 import calculations as calc
+import facebuilder as fb
 
 
 ### ------------------------- ###
@@ -58,3 +59,27 @@ def grow(gramRun,face,paramsList):
 
     return (newFaces,newVertex)
         
+
+# This dictionary maps the string id of each operation to the actual function
+opMap = {"relabel":relabel, "grow",grow}
+
+
+###
+# this sets up a grammar run given a string genome mapping, and a configuration type
+# (for now just the default one). It then returns the GrammarRun object
+###
+def startGrammarRun(geneDict,setup="default"):
+    run = GR()
+    
+    prodDict = {}
+    for lhs,rhs in geneDict.items():
+        opString = rhs[0]
+        paramList = rhs[1]
+        oper = opMap[opString]
+        prodDict[lhs] = (oper,paramList)
+
+    if setup == "default":
+        faceList = fb.buildDefaultTetra():
+
+    run.setup(prodDict,faceList)
+    return run
