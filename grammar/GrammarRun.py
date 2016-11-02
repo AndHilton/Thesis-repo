@@ -55,7 +55,7 @@ class GrammarRun:
             rhs = self.productions[lhs]
             operation = rhs[0]
             paramsList = rhs[1]
-            result = operation(self,paramsList)
+            result = operation(self,current,paramsList)
             newQueue.extend(result[0])
             if result[1] != None:
                 self.vertices.append[result]
