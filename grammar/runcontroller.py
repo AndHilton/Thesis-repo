@@ -45,7 +45,7 @@ def grow(gramRun,face,paramsList):
     exts = face.calcExtension()
     truths = []
     for vertex in gramRun.vertices:
-        truths.append(calc.vertexComp(exts[0],vertex))
+        truths.append(calc.vertexEq(exts[0],vertex))
     if True not in truths:
         newVertex = exts[0]
     else:
@@ -61,7 +61,7 @@ def grow(gramRun,face,paramsList):
         
 
 # This dictionary maps the string id of each operation to the actual function
-opMap = {"relabel":relabel, "grow",grow}
+opMap = {"relabel":relabel, "grow":grow}
 
 
 ###
@@ -74,12 +74,12 @@ def startGrammarRun(geneDict,setup="default"):
     prodDict = {}
     for lhs,rhs in geneDict.items():
         opString = rhs[0]
-        paramList = rhs[1]
+        paramList = list(rhs[1])
         oper = opMap[opString]
         prodDict[lhs] = (oper,paramList)
 
     if setup == "default":
-        faceList = fb.buildDefaultTetra():
+        faceList = fb.buildDefaultTetra()
 
     run.setup(prodDict,faceList)
     return run

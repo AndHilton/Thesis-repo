@@ -35,12 +35,18 @@ class GrammarRun:
         self.productions = prodDict
         for face in initialFaceList:
             self.faceQueue.append(face)
-            for vertex in face.getVertices():
-                found = False
-                counter = 0
-                while counter < len(self.vertices) and not found:
-                    found = calc.vertexComp(vertex,self.vertices[counter])
-                    counter += 1
+            if len(self.vertices) > 0:
+                for vertex in face.getVertices():
+                    found = False
+                    counter = 0
+                    while counter < len(self.vertices) and not found:
+                        found = calc.vertexEq(vertex,self.vertices[counter])
+                        counter += 1
+                    if not found:
+                        self.vertices.append(vertex)
+            else:
+                self.vertices.extend(face.getVertices())
+                        
 
 
     
@@ -57,8 +63,8 @@ class GrammarRun:
             paramsList = rhs[1]
             result = operation(self,current,paramsList)
             newQueue.extend(result[0])
-            if result[1] != None:
-                self.vertices.append[result]
+            if result[1] is not None:
+                self.vertices.append(result[1])
         self.faceQueue = newQueue
 
 
@@ -70,3 +76,18 @@ class GrammarRun:
         for i in range(n):
             self.nextStep()
     
+
+
+    ###
+    # returns a grammar-string representation of the current state of the system
+    # (i.e. returns a string of labels, in the order of the queue)
+    ###
+    def stringRep(self):
+        catchQueue = deque()
+        retStr = ""
+        while len(self.faceQueue) > 0:
+            current = self.faceQueue.popleft()
+            retStr += current.label
+            catchQueue.append(current)
+        self.faceQueue = catchQueue
+        return retStr

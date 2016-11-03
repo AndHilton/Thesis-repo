@@ -10,6 +10,7 @@ is working as intended
 from Face import Face
 import numpy as np
 import math
+import calculations as calc
 
 ERRORVALUE = 10^(12)
 threshold = np.array([ERRORVALUE,ERRORVALUE,ERRORVALUE])
@@ -18,6 +19,8 @@ def main():
 
     test_constructor()
     test_extend()
+    print("\n\n{}\n\n".format("-"*30))
+    test_vertexEq()
 
 
 def test_constructor():
@@ -41,6 +44,19 @@ def test_extend():
     assert np.linalg.norm(actual[0]-expected) < ERRORVALUE or np.linalg.norm(actual[1]-expected) < ERRORVALUE
     assert np.linalg.norm(expected-actual[0]) < ERRORVALUE or np.linalg.norm(expected-actual[1]) < ERRORVALUE
 
+def test_vertexEq():
+
+    print("Testing the vertexEq function in the calculations module")
+    xnorm = np.array([1,0,0])
+    print("Comparing arrays to {}".format(np.array_str(xnorm)))
+    for exp in range(15):
+        result = xnorm + np.array([10**(-exp),0,0])
+        print("exp = {}".format(-exp))
+        print("current = {}".format(np.array_str(result)))
+        same = calc.vertexEq(xnorm,result)
+        print("are they close enough?  {}".format(same))
+
+    
 def build_default_face():
     label = "A"
     point1 = np.array([0,0,0])
