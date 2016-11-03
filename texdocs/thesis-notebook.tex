@@ -133,7 +133,7 @@ I think the next step is to finish implementing the face and vertex classes, tes
 \item Where will the calculations for vertex location be located?  It is mostly used for the grow operation, but it will be needed for the setup.
 \item How will the initial state of the system be setup?  Will it be populated by multiple tetrahedra, or will it just start with a single tetrahedron with a random assortment of labels and proceed from there?
 \item Should the initial setup of a tetrahedron rely on the grow operation?  That would basically bring the amount of information needed to initially setup the system would be initializing a single face, and picking a direction for the cross product.
-\item How will the positional vector $\vec{p}$ be determined?  Initially I figured it should just be the one closest to the origin, but would that make the calculation more difficult if that cross product goes in the ``wrong direction''?  I think the best way of doing this would be to find the normalized cross product, and multiply it by $h$ and $-h$, in order to find both directions.  Intuitively it seems like the vertex extension calculations in this case would produce 2 vertices, one that already existed (opposite the face being operated on) and one that does not, which is the new one that gets produced by the operation.  However there may be some problems if somehow two faces end up being parallell to each other.  I don't actually know if it is possible to have that kind of collision in a tetrahedral mesh system, that might be why people like them.
+\item How will the positional vector $\vec{p}$ be determined?  Initially I figured it should just be the one closest to the origin, but would that make the calculation more difficult if that cross product goes in the ``wrong direction''?  I think the best way of doing this would be to find the normalized cross product, and multiply it by $h$ and $-h$, in order to find both directions.  Intuitively it seems like the vertex extension calculations in this case would produce 2 vertices, one that already existed (opposite the face being operated on) and one that does not, which is the new one that gets produced by the operation.  However there may be some problems if somehow two faces end up being parallel to each other.  I don't actually know if it is possible to have that kind of collision in a tetrahedral mesh system, that might be why people like them.
 \end{itemize}
 
 
@@ -147,6 +147,7 @@ I need to re-type the algorithm in this notebook just so that I can have it in w
 the next thing that I need to figure out for the next part of the system is how to implement the actual grammar production part of the system.  I could either implement it as a script that runs for a given number of generations, using a given configuration, with a given set of production rules.
 
 
+<<<<<<< HEAD
 % ------------------------------------------------------------
 
 \section*{Week of October \nth{30}, 2016}
@@ -154,6 +155,30 @@ the next thing that I need to figure out for the next part of the system is how 
 \subsection*{Sunday, October \nth{30}}
 
 Today I mostly worked on testing the math behind the Face cacluations, to see if it worked with the modules I was using.  I discovered a slight rounding error in the calcExtension function of the Face class, but it was very miniscule\footnote{somewhere in the $10^{-17}$th place}.  I was able to circumvent this issue by switching from testing equality, to just checking to see if two points were in a threshold of each other.  This was done by finding the length of $\vec{A} - \vec{B}$.  After I was done with testing I started working on the modeling functionality.  I started off by looking into STL formatting, and seeing if I could convert my data into meshes.  This seemed kind of promising, except that the module I found to help with this was \textbf{A)} not well documented and hard to understand, \textbf{B)} it wasn't compatible with Python 3, which is what I plan on writing the rest of the system in anyways, and \textbf{C)} the program I would use to open and view the stl files would most likely be Blender, which has a lot of builtin Python compatability.  This lead me to investigate the Python API for Blender, which looks promising.  I will have to spend some time figuring out the best way to approach the problem from this side, and it may turn out that the STL formatting stuff is just the right level of complexity and extendibility that I am looking for.  Though if I do end up moving forward with the blender approach, and I end up needing an stl down the line, I can just use the Blender tools to export as an STL.
+
+\subsection*{Wednesday, November \nth{2}}
+
+I have a lot to catch up on as I have not been keeping the notebook updated with what I have been doing.  Being sick has made work a little bit harder but I just made some real progress so things are starting to look up.  The big benchmark that I just hit was completing the implementation of the backend of the grammar.  This means that I have a system, that given a mapping of strings representing the production rules of the grammar (the ``genotype'' of the system) it returns an object that encapsulates the data regarding the faces being operated on, the vertices present in the system, and the number of iterations that have been done.  I plan on making it so that you can alter the initial configuration of the system (at least the initial labels of the faces.  I might keep it constrained to one tetrahedron at a fixed location to start).  One thing I realized is that my system is a modified Model-View-Controller pattern.  The model is the grammar, the view is the 3D models, and the controller is the evolutionary algorithm\footnote{The Model (Grammar) is altered by the genome passed into it by the Controller (the GA), the updated data from the Model is then passed on to the View (3D model), which is used to ascertain information about the Model (i.e. volume, surface area, etc.).  This information is then passed back to the Controller, which uses it to inform its decisions about the next step in the GA}.  The next step is to work on implementing the interface between the backend grammar data, and the 3D modeling software.  After that I can work on the evolutionary system.
+
+\subsubsection*{Design Decisions}
+For the design of the grammar I made some initial decisions based on what I felt would make transferring the data from the grammar into the other parts of the system (specifically the 3D view).  I wanted to be able to encapsulate the information about both the faces, and the vertices because I felt that it would make constructing the 3D model easier if there was a master list of all the vertices, rather than having to go through each face and construct it point by point\footnote{not sure if this is actually going to be easier, but I feel like my method is more extendable}.  Because of this I created the ``GrammarRun'' class, which encapsulates this information.  Using this approach lead to other issues in where data needed to be kept and what had access to it, specifically in where the production rules would be defined, and how to hide information about the implementation of the Grammar from other parts of the system\footnote{not strictly speaking because Python...}.  This lead to me creating a two part system for the grammar.  There is the GrammarRun class which contains all of the information of an single instance of a grammar defined by the tetrahedral language, and the runcontroller module which defines the implementation of the operations of the grammar, and interfaces with the setup of a GrammarRun, in order to hide the functional aspect of the operations from other parts of the system overall.  This means that creating an instance of a GrammarRun involves making a call to the \emph{\texttt{startGrammarRun}} function of the runcontroller module, passing in a dictionary mapping between the Left Hand Sides of the grammar (the labels being operated on) and a tuple containing a string representing the operation, and a string containing the arguments of the operation\footnote{this argument list can be given as a flat string, or a list containing the individual arguments}
+\\
+\emph{Example}
+\\
+\textbf{Grammar:}
+\\
+\[A \to grow(BCD)\]
+\[B \to relabel(A)\]
+\[\vdots\]
+\\
+\textbf{Mapping in Genome:}
+\\
+\[ ``A'' : (``grow'',``BCD''), ``B'' : (``relabel'',``A''), \dots  \]
+\\
+This call to startGrammarRun will return a GrammarRun object with the given production rules.  The nextStep, and nRun methods of the GrammarRun are then used to perform the actual productions of the grammar.
+
+\subsubsection*{Next Steps}
+Now that I have my internal representation of the grammar set up, I need to work on interfacing with 3D modeling software, to actually produce models of these systems.  I am most likely going to be using Blender as it has an extensive interface with Python 3, and seems to be powerful enough to have some outside functionality (as opposed to something like STL which might not be able to tell me geometric information about the shapes produced)\footnote{also Blender is much more free than solidworks}.  If I am able to set up a sufficient interface between my system and the Blender API, and later down the road I need to convert things to STL in order to make them more portable, it seems as though Blender is able to do that through Python, which is nice.
 
 
 % ----------------------------------------------------------

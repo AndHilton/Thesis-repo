@@ -1,6 +1,11 @@
 ### ------------------------------------------------------------
 """
+<<<<<<< HEAD
 This module just provides tools to generate faces easily
+=======
+A module containing utilities for building faces and tetrahedron
+for the grammar
+>>>>>>> grammarsys
 
 Author : AHilton
 """
@@ -9,38 +14,24 @@ Author : AHilton
 import numpy as np
 from Face import Face
 import math
-import random as r
+import itertools
 
+defaultPoints = [[0,0,0],
+                 [1,0,0],
+                 [1/2,math.sqrt(3)/2,0],
+                 [1/2,1/2*math.sqrt(3),math.sqrt(3/2)]]
+defaultLabels = ["A","B","C","D"]
 
 ###
-# builds a face at the "default" base location, with the "default" label
+# Returns a list of faces at the "default" location for a tetrahedron
 ###
-def build_default_face():
-    label = "A"
-    vert1 = np.array([0,0,0])
-    vert2 = np.array([1,0,0])
-    vert3 = np.array([1/2,math.sqrt(3)/2,0])
-    return Face(label,vert1,vert2,vert3)
-
-# ###
-# # builds a face at a random point within the given bounds
-# ###
-# def build_random_face(xmin=-10,xmax=10,ymin=-10,ymax=10,zmin=-10,zmax=10):
-#     xPos = r.uniform(xmin,xmax)
-#     yPos = r.uniform(ymin,ymax)
-#     zPos = r.uniform(zmin,zmax)
-#     vert1 = np.array([xPos,yPos,zPos])
-
-
+def buildDefaultTetra():
+    vertices = [np.array(v) for v in defaultPoints]
+    combos = itertools.combinations(vertices,3)
+    faces = []
+    for label,vertices in zip(defaultLabels,combos):
+        nextFace = Face(label,vertices[0],vertices[1],vertices[2])
+        faces.append(nextFace)
+    return faces
     
-# ### ------------------------------------------------------------
-# ### Helper Functions
-# ### ------------------------------------------------------------
-
-# def find_normal_edge(points):
-#     searching = False
-#     while searching:
-#         xPos = r.uniform(xmin,xmax)
-#         yPos = r.uniform(ymin,ymax)
-#         zPos = r.uniform(zmin,zmax)
-#         test = np.array([xPos,yPos,zPos]
+>>>>>>> grammarsys
