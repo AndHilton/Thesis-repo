@@ -181,6 +181,20 @@ This call to startGrammarRun will return a GrammarRun object with the given prod
 Now that I have my internal representation of the grammar set up, I need to work on interfacing with 3D modeling software, to actually produce models of these systems.  I am most likely going to be using Blender as it has an extensive interface with Python 3, and seems to be powerful enough to have some outside functionality (as opposed to something like STL which might not be able to tell me geometric information about the shapes produced)\footnote{also Blender is much more free than solidworks}.  If I am able to set up a sufficient interface between my system and the Blender API, and later down the road I need to convert things to STL in order to make them more portable, it seems as though Blender is able to do that through Python, which is nice.
 
 
+\subsection{Friday, November \nth{4}}
+
+\subsubsection{Modeling Work}
+After doing some research on the Blender API, and testing some of the features out myself I have figured out how to
+\begin{itemize}
+\item run a python script in blender through the command line (also how to do it in the background)
+\item how to add faces (as meshes) to a blender file by creating and manipulating bpy Mesh objects and Object objects, and linking them to scenes to draw them (I will create a method in the Face class that returns the list of arrays as a list of tuples)
+\item while I was unable to figure out how to create new files programmatically through a script, I found that I can create new scenes through bpy commands, and edit them independently.  This might mean that I make a file for every run, and the different results will get written to different scenes in the file
+\end{itemize}
+
+If I want I can probably make it so that the grammar is animated by drawing each iteration to a different frame in the same scene \footnote{I would have to do a bit of reading on working with animation tools}
+\par
+As of right now I really just need to focus on being able to generate images programmatically and make sure they look as intended.  After that I will be able to start implementing the interface between the grammar system and the model.
+
 % ----------------------------------------------------------
 
 \bibliography{centralbib}
