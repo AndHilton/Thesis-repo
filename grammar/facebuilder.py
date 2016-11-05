@@ -12,7 +12,7 @@ Author : AHilton
 ### ------------------------------------------------------------
 
 import numpy as np
-from Face import Face
+from grammar import Face
 import math
 import itertools
 
@@ -34,4 +34,4 @@ def buildDefaultTetra():
         faces.append(nextFace)
     return faces
     
->>>>>>> grammarsys
+

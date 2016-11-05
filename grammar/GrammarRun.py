@@ -11,10 +11,10 @@ Author : AHilton
 
 import numpy as np
 import math
-from Face import Face
-import facebuilder as fb
+from grammar import Face
+from grammar import facebuilder as fb
 from collections import deque
-import calculations as calc
+from grammmarimport calculations as calc
 
 class GrammarRun:
 

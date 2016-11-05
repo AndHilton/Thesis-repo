@@ -181,9 +181,9 @@ This call to startGrammarRun will return a GrammarRun object with the given prod
 Now that I have my internal representation of the grammar set up, I need to work on interfacing with 3D modeling software, to actually produce models of these systems.  I am most likely going to be using Blender as it has an extensive interface with Python 3, and seems to be powerful enough to have some outside functionality (as opposed to something like STL which might not be able to tell me geometric information about the shapes produced)\footnote{also Blender is much more free than solidworks}.  If I am able to set up a sufficient interface between my system and the Blender API, and later down the road I need to convert things to STL in order to make them more portable, it seems as though Blender is able to do that through Python, which is nice.
 
 
-\subsection{Friday, November \nth{4}}
+\subsection*{Friday, November \nth{4}}
 
-\subsubsection{Modeling Work}
+\subsubsection*{Modeling Work}
 After doing some research on the Blender API, and testing some of the features out myself I have figured out how to
 \begin{itemize}
 \item run a python script in blender through the command line (also how to do it in the background)
@@ -194,6 +194,11 @@ After doing some research on the Blender API, and testing some of the features o
 If I want I can probably make it so that the grammar is animated by drawing each iteration to a different frame in the same scene \footnote{I would have to do a bit of reading on working with animation tools}
 \par
 As of right now I really just need to focus on being able to generate images programmatically and make sure they look as intended.  After that I will be able to start implementing the interface between the grammar system and the model.
+
+
+\subsection*{Saturday, November \nth{5}}
+So today I figured out how to do a save as operation in blender through the Python API, which means I can automate basically the entire system.  I also figured out how to actually make a package work, so I can begin to start interfacing the grammar with the modeling script.  I just had to add some import statements to the __init__ file of the package.  My next step is to figure out how to actually generate the actual models themselves.  I think I have been able to create faces in blender, so it is now just a matter of doing it iteratively by taking the information from the GrammarRun, translating it into a datatype that is usable by Blender, and then passing that information onto a function that actually interfaces with the API.
+
 
 % ----------------------------------------------------------
 

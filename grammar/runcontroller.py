@@ -8,10 +8,10 @@ Author : AHilton
 ### ------------------------------------------------------------
 
 import numpy as np
-from Face import Face
-from GrammarRun import GrammarRun as GR
-import calculations as calc
-import facebuilder as fb
+from grammar import Face
+from grammar import GrammarRun as GR
+from grammar import calculations as calc
+from grammar import facebuilder as fb
 
 
 ### ------------------------- ###
