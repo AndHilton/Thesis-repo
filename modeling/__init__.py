@@ -12,4 +12,4 @@ import sys
 sys.path.insert(0,"/home/ahilton/thesis-repo/modeling/")
 
 import file_tools
-#import add_geometry
+import add_geometry

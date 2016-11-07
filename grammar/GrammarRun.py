@@ -21,6 +21,8 @@ class GrammarRun:
     productions = None
     faceQueue = None
     vertices = None
+    isSetup = False
+    iterNum = 0
 
     def __init__(self):
         self.productions = {}
@@ -46,6 +48,7 @@ class GrammarRun:
                         self.vertices.append(vertex)
             else:
                 self.vertices.extend(face.getVertices())
+        self.isSetup = True
                         
 
 
@@ -66,6 +69,7 @@ class GrammarRun:
             if result[1] is not None:
                 self.vertices.append(result[1])
         self.faceQueue = newQueue
+        self.iterNum += 1
 
 
     
@@ -91,3 +95,9 @@ class GrammarRun:
             catchQueue.append(current)
         self.faceQueue = catchQueue
         return retStr
+
+    ###
+    # returns the list of faces currently being tracked in the system
+    ###
+    def getFaces(self):
+        return list(self.faceQueue)
