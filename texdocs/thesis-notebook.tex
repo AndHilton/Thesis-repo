@@ -11,7 +11,7 @@
 % Basic packages that are good to use
 \usepackage[hidelinks]{hyperref}
 \usepackage{amsmath}
-n\usepackage{amsthm}
+\usepackage{amsthm}
 \usepackage{amssymb}
 
 
@@ -197,7 +197,7 @@ As of right now I really just need to focus on being able to generate images pro
 
 
 \subsection*{Saturday, November \nth{5}}
-So today I figured out how to do a save as operation in blender through the Python API, which means I can automate basically the entire system.  I also figured out how to actually make a package work, so I can begin to start interfacing the grammar with the modeling script.  I just had to add some import statements to the __init__ file of the package.  My next step is to figure out how to actually generate the actual models themselves.  I think I have been able to create faces in blender, so it is now just a matter of doing it iteratively by taking the information from the GrammarRun, translating it into a datatype that is usable by Blender, and then passing that information onto a function that actually interfaces with the API.
+So today I figured out how to do a save as operation in blender through the Python API, which means I can automate basically the entire system.  I also figured out how to actually make a package work, so I can begin to start interfacing the grammar with the modeling script.  I just had to add some import statements to the init file of the package.  My next step is to figure out how to actually generate the actual models themselves.  I think I have been able to create faces in blender, so it is now just a matter of doing it iteratively by taking the information from the GrammarRun, translating it into a datatype that is usable by Blender, and then passing that information onto a function that actually interfaces with the API.
 
 % ---------------------------------------------
 
@@ -205,7 +205,7 @@ So today I figured out how to do a save as operation in blender through the Pyth
 
 
 \subsection*{Sunday, November \nth{6}}
-I would like to have something that resembles being a complete link between the modeling system and the grammar system at the minimum by tomorrow, so that I way I can have some images generated from my own work to be able to place on my poster\footnote{which is doing \textbf{TUESDAY}}
+I would like to have something that resembles being a complete link between the modeling system and the grammar system at the minimum by tomorrow, so that I way I can have some images generated from my own work to be able to place on my poster\footnote{which is due \textbf{TUESDAY}}
 
 \subsubsection*{Ideas for modeling}
 I am going to be building some scripts to directly interface between the grammar package and the modeling package in order to get a better idea of what actually needs to be implemented in order to make the system functional.  I want to make sure that I have a good idea of what kind of information can be kept extendable
@@ -239,16 +239,19 @@ The new site on the other hand has me doing it this way
 
 \subsubsection*{Trying out grammar-blender interface}
 I am going to use a grammar with the following production rules to test out the interface
-\begin{math}
+\begin{displaymath}
   A \to relabel(E) \\
   B \to grow(CDA)  \\
   C \to relabel(B) \\
   D \to grow(ABF)  \\
   E \to grow(FCD)  \\
   F \to relabel(E)
-\end{math}
+\end{displaymath}
 
 I will use this grammar and model the system at various break points (for starters I am planning on doing 0, 1, 5, 20, 50).
+
+\subsubsection*{PROGRESS!}
+I was able to generate renders of the grammar for up to 5 iterations (and more) however I ran into a few problems.  For starters blender is not rendering the shapes as regular tetrahedra, they are sort of irregularly shaped, which makes the productions of the grammar look a little bit funky.  The other problem I am running into is while it only takes a couple of seconds to produce and render the first 5 or so iterations of the grammar, it was upwards of 10 minutes to get to 20 iterations.  I am going to set it up to run overnight and run a clock on it to see how long it takes to run the full thing (running it in the background with the time tool and gonna save the output of that to a log somewhere).  Overall pretty successful as I am only a couple of tweaks away from having a working grammar system and modeling system.  Next steps will be to fix the render so it looks right, \emph{potentially} optimize the system to not run for forever, and to make my poster.
 
 
 % ----------------------------------------------------------
