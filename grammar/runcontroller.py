@@ -58,10 +58,19 @@ def grow(gramRun,face,paramsList):
     newFaces.append(Face(paramsList[2],oldVs[2],oldVs[0],newVertex))
 
     return (newFaces,newVertex)
-        
+
+###
+# the function for the rest operation of the grammar
+# takes in a grammar run, the face being operated on, and an empty list
+#
+# returns a tuple containing a list containing the original face, and None
+###
+def rest(gramRun,face,paramsList):
+    return ([face],None)
+
 
 # This dictionary maps the string id of each operation to the actual function
-opMap = {"relabel":relabel, "grow":grow}
+opMap = {"relabel":relabel, "grow":grow, "rest":rest}
 
 
 ###
