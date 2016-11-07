@@ -8,10 +8,10 @@ Author : AHilton
 ### ------------------------------------------------------------
 
 import numpy as np
-from Face import Face
-from GrammarRun import GrammarRun as GR
-import calculations as calc
-import facebuilder as fb
+from grammar import Face
+from grammar import GrammarRun as GR
+from grammar import calculations as calc
+from grammar import facebuilder as fb
 
 
 ### ------------------------- ###
@@ -76,6 +76,9 @@ opMap = {"relabel":relabel, "grow":grow, "rest":rest}
 ###
 # this sets up a grammar run given a string genome mapping, and a configuration type
 # (for now just the default one). It then returns the GrammarRun object
+#
+# ****DEPRECATED*****
+# From now on use the setupRun function
 ###
 def startGrammarRun(geneDict,setup="default"):
     run = GR()
@@ -92,3 +95,12 @@ def startGrammarRun(geneDict,setup="default"):
 
     run.setup(prodDict,faceList)
     return run
+
+###
+# has the same functionality of the startGrammarRun function, but with a better name
+###
+def setupRun(genedict,setup="default"):
+
+    # This is going to be the function where I will add the functionality of the different
+    # setup paramters (like initial face labels, etc.)
+    return startGrammarRun(genedict,setup)

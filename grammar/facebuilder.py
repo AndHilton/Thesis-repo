@@ -1,14 +1,18 @@
 ### ------------------------------------------------------------
 """
+<<<<<<< HEAD
+This module just provides tools to generate faces easily
+=======
 A module containing utilities for building faces and tetrahedron
 for the grammar
+>>>>>>> grammarsys
 
 Author : AHilton
 """
 ### ------------------------------------------------------------
 
 import numpy as np
-from Face import Face
+from grammar import Face
 import math
 import itertools
 

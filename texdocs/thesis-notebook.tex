@@ -93,7 +93,7 @@ Starting to finally get myself organized on doing the actual setup of the gramma
 \subsubsection*{What I got}
 The overview of my solution of how to calculate the new point after a grow operation has been used.  Pick an edge of the face that is being operated on, and zero it by subtracting the vector from the origin to the corner ($\overrightarrow{p}$).  Next take the cross product of the two vectors that define the edges of the corner. Then multiply that vector by the scalar representing the height of the tetrahedron ($h$) \footnote{make sure that the orthogonal vector is going in the correct direction from the plane}.  Then add the vector to the center of the face ($\overrightarrow{c}$).  This should produce the extended point from the face, after it has been zeroed.  Then re-add the positional vector ($\overrightarrow{p}$) to get the extended vector centered on the original face.
 \par
-Turns out that this approach of taking the cross product, scaling and adding the vector to the center is \textbf{not the right solution}.  The process of finding the vector to the center is exactly the same process as solving for the system of equations where the dot products are $\frac{1}{2}$.  I will explain more below.
+Turns out that this approach of taking the cross product, scaling and adding the vector to the center is \textbf{not the right solution}.  The process of finding the vector to the center is exactly the same process as solving for the system of equations where the dot products are $\frac{1}{2}$.  I will explain moren below.
 
 \subsection*{Wednesday, October\nth{26}}
 \subsubsection*{I Did It?: Finally solving the Problem of the Grow Operation}
@@ -147,8 +147,14 @@ I need to re-type the algorithm in this notebook just so that I can have it in w
 the next thing that I need to figure out for the next part of the system is how to implement the actual grammar production part of the system.  I could either implement it as a script that runs for a given number of generations, using a given configuration, with a given set of production rules.
 
 
-%----------------------------------------------------------
+<<<<<<< HEAD
+% ------------------------------------------------------------
+
 \section*{Week of October \nth{30}, 2016}
+
+\subsection*{Sunday, October \nth{30}}
+
+Today I mostly worked on testing the math behind the Face cacluations, to see if it worked with the modules I was using.  I discovered a slight rounding error in the calcExtension function of the Face class, but it was very miniscule\footnote{somewhere in the $10^{-17}$th place}.  I was able to circumvent this issue by switching from testing equality, to just checking to see if two points were in a threshold of each other.  This was done by finding the length of $\vec{A} - \vec{B}$.  After I was done with testing I started working on the modeling functionality.  I started off by looking into STL formatting, and seeing if I could convert my data into meshes.  This seemed kind of promising, except that the module I found to help with this was \textbf{A)} not well documented and hard to understand, \textbf{B)} it wasn't compatible with Python 3, which is what I plan on writing the rest of the system in anyways, and \textbf{C)} the program I would use to open and view the stl files would most likely be Blender, which has a lot of builtin Python compatability.  This lead me to investigate the Python API for Blender, which looks promising.  I will have to spend some time figuring out the best way to approach the problem from this side, and it may turn out that the STL formatting stuff is just the right level of complexity and extendibility that I am looking for.  Though if I do end up moving forward with the blender approach, and I end up needing an stl down the line, I can just use the Blender tools to export as an STL.
 
 \subsection*{Wednesday, November \nth{2}}
 
@@ -173,6 +179,79 @@ This call to startGrammarRun will return a GrammarRun object with the given prod
 
 \subsubsection*{Next Steps}
 Now that I have my internal representation of the grammar set up, I need to work on interfacing with 3D modeling software, to actually produce models of these systems.  I am most likely going to be using Blender as it has an extensive interface with Python 3, and seems to be powerful enough to have some outside functionality (as opposed to something like STL which might not be able to tell me geometric information about the shapes produced)\footnote{also Blender is much more free than solidworks}.  If I am able to set up a sufficient interface between my system and the Blender API, and later down the road I need to convert things to STL in order to make them more portable, it seems as though Blender is able to do that through Python, which is nice.
+
+
+\subsection*{Friday, November \nth{4}}
+
+\subsubsection*{Modeling Work}
+After doing some research on the Blender API, and testing some of the features out myself I have figured out how to
+\begin{itemize}
+\item run a python script in blender through the command line (also how to do it in the background)
+\item how to add faces (as meshes) to a blender file by creating and manipulating bpy Mesh objects and Object objects, and linking them to scenes to draw them (I will create a method in the Face class that returns the list of arrays as a list of tuples)
+\item while I was unable to figure out how to create new files programmatically through a script, I found that I can create new scenes through bpy commands, and edit them independently.  This might mean that I make a file for every run, and the different results will get written to different scenes in the file
+\end{itemize}
+
+If I want I can probably make it so that the grammar is animated by drawing each iteration to a different frame in the same scene \footnote{I would have to do a bit of reading on working with animation tools}
+\par
+As of right now I really just need to focus on being able to generate images programmatically and make sure they look as intended.  After that I will be able to start implementing the interface between the grammar system and the model.
+
+
+\subsection*{Saturday, November \nth{5}}
+So today I figured out how to do a save as operation in blender through the Python API, which means I can automate basically the entire system.  I also figured out how to actually make a package work, so I can begin to start interfacing the grammar with the modeling script.  I just had to add some import statements to the init file of the package.  My next step is to figure out how to actually generate the actual models themselves.  I think I have been able to create faces in blender, so it is now just a matter of doing it iteratively by taking the information from the GrammarRun, translating it into a datatype that is usable by Blender, and then passing that information onto a function that actually interfaces with the API.
+
+% ---------------------------------------------
+
+\section*{Week of November \nth{6}, 2016}
+
+
+\subsection*{Sunday, November \nth{6}}
+I would like to have something that resembles being a complete link between the modeling system and the grammar system at the minimum by tomorrow, so that I way I can have some images generated from my own work to be able to place on my poster\footnote{which is due \textbf{TUESDAY}}
+
+\subsubsection*{Ideas for modeling}
+I am going to be building some scripts to directly interface between the grammar package and the modeling package in order to get a better idea of what actually needs to be implemented in order to make the system functional.  I want to make sure that I have a good idea of what kind of information can be kept extendable
+\begin{itemize}
+\item Whether or not it makes sense to make my own serialization file format, what is the minimum information needed to be transferred between the two systems?
+\item should I look into builtin python serialization (xml/pickling)?
+\item I want to figure out what the best datatype is to pass to the part of the modeling system in order to actually produce the faces of the thing.  As of right now I think the most sensible way of doing it is to just pass it lists of tuples, with each tuple being one of the vertices of the face.  Don't need to worry about passing in the list of edges because blender does that based on the list of vertices, so since I already know that each list of vertices is going to be of len(3) then I can just hard code in the list of edges based on that.
+\end{itemize}
+
+I was just looking at another site explaining using the Python API and the order that they did for data creation seems to make more sense for my needs than what I was previously doing.  The order of data creation I was doing before was based on another site that had me doing it
+\begin{enumerate}
+\item Create the lists of vertices and edges
+\item Create the mesh (give it it's ID)
+\item Create an object from the mesh
+\item (\emph{Optional}) Set the location of the object to that of the cursor \footnote{this apparently just sets the orientation of the object/mesh around the cursor, rather than the origin}
+\item Link the object to the current scene
+\item Change the location of the mesh to the python data
+\item Update the mesh
+\end{enumerate}
+The new site on the other hand has me doing it this way
+\begin{enumerate}
+\item setup the lists of edge and vertex data
+\item create a new mesh
+\item change the mesh data to match the pydata
+\item update the mesh
+\item create a new object from the mesh
+\item (\emph{Optional}) overwrite the object's .data using the mesh data
+\item link the object to the scene
+\item (\emph{Optional}) select the new object
+\end{enumerate}
+
+\subsubsection*{Trying out grammar-blender interface}
+I am going to use a grammar with the following production rules to test out the interface
+\begin{displaymath}
+  A \to relabel(E) \\
+  B \to grow(CDA)  \\
+  C \to relabel(B) \\
+  D \to grow(ABF)  \\
+  E \to grow(FCD)  \\
+  F \to relabel(E)
+\end{displaymath}
+
+I will use this grammar and model the system at various break points (for starters I am planning on doing 0, 1, 5, 20, 50).
+
+\subsubsection*{PROGRESS!}
+I was able to generate renders of the grammar for up to 5 iterations (and more) however I ran into a few problems.  For starters blender is not rendering the shapes as regular tetrahedra, they are sort of irregularly shaped, which makes the productions of the grammar look a little bit funky.  The other problem I am running into is while it only takes a couple of seconds to produce and render the first 5 or so iterations of the grammar, it was upwards of 10 minutes to get to 20 iterations.  I am going to set it up to run overnight and run a clock on it to see how long it takes to run the full thing (running it in the background with the time tool and gonna save the output of that to a log somewhere).  Overall pretty successful as I am only a couple of tweaks away from having a working grammar system and modeling system.  Next steps will be to fix the render so it looks right, \emph{potentially} optimize the system to not run for forever, and to make my poster.
 
 
 % ----------------------------------------------------------
