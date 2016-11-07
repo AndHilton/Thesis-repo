@@ -15,7 +15,7 @@ import itertools
 defaultPoints = [[0,0,0],
                  [1,0,0],
                  [1/2,math.sqrt(3)/2,0],
-                 [1/2,1/2*math.sqrt(3),math.sqrt(3/2)]]
+                 [1/2,1/(2*math.sqrt(3)),math.sqrt(3/2)]]
 defaultLabels = ["A","B","C","D"]
 
 ###
