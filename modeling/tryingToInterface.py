@@ -30,7 +30,7 @@ def main():
                    5,
                    20,
                    50]
-#    breakPoints = breakPoints[:3]  # **Modify this to change the range of breakpoints**
+    breakPoints = breakPoints[:3]  # **Modify this to change the range of breakpoints**
     
     ## Grammar Definition ##
     LHS = ["A","B","C","D","E","F"]
