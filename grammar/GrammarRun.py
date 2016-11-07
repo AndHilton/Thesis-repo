@@ -14,7 +14,7 @@ import math
 from grammar import Face
 from grammar import facebuilder as fb
 from collections import deque
-from grammmarimport calculations as calc
+from grammar import calculations as calc
 
 class GrammarRun:
 

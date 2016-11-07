@@ -11,7 +11,7 @@
 % Basic packages that are good to use
 \usepackage[hidelinks]{hyperref}
 \usepackage{amsmath}
-\usepackage{amsthm}
+n\usepackage{amsthm}
 \usepackage{amssymb}
 
 
@@ -198,6 +198,57 @@ As of right now I really just need to focus on being able to generate images pro
 
 \subsection*{Saturday, November \nth{5}}
 So today I figured out how to do a save as operation in blender through the Python API, which means I can automate basically the entire system.  I also figured out how to actually make a package work, so I can begin to start interfacing the grammar with the modeling script.  I just had to add some import statements to the __init__ file of the package.  My next step is to figure out how to actually generate the actual models themselves.  I think I have been able to create faces in blender, so it is now just a matter of doing it iteratively by taking the information from the GrammarRun, translating it into a datatype that is usable by Blender, and then passing that information onto a function that actually interfaces with the API.
+
+% ---------------------------------------------
+
+\section*{Week of November \nth{6}, 2016}
+
+
+\subsection*{Sunday, November \nth{6}}
+I would like to have something that resembles being a complete link between the modeling system and the grammar system at the minimum by tomorrow, so that I way I can have some images generated from my own work to be able to place on my poster\footnote{which is doing \textbf{TUESDAY}}
+
+\subsubsection*{Ideas for modeling}
+I am going to be building some scripts to directly interface between the grammar package and the modeling package in order to get a better idea of what actually needs to be implemented in order to make the system functional.  I want to make sure that I have a good idea of what kind of information can be kept extendable
+\begin{itemize}
+\item Whether or not it makes sense to make my own serialization file format, what is the minimum information needed to be transferred between the two systems?
+\item should I look into builtin python serialization (xml/pickling)?
+\item I want to figure out what the best datatype is to pass to the part of the modeling system in order to actually produce the faces of the thing.  As of right now I think the most sensible way of doing it is to just pass it lists of tuples, with each tuple being one of the vertices of the face.  Don't need to worry about passing in the list of edges because blender does that based on the list of vertices, so since I already know that each list of vertices is going to be of len(3) then I can just hard code in the list of edges based on that.
+\end{itemize}
+
+I was just looking at another site explaining using the Python API and the order that they did for data creation seems to make more sense for my needs than what I was previously doing.  The order of data creation I was doing before was based on another site that had me doing it
+\begin{enumerate}
+\item Create the lists of vertices and edges
+\item Create the mesh (give it it's ID)
+\item Create an object from the mesh
+\item (\emph{Optional}) Set the location of the object to that of the cursor \footnote{this apparently just sets the orientation of the object/mesh around the cursor, rather than the origin}
+\item Link the object to the current scene
+\item Change the location of the mesh to the python data
+\item Update the mesh
+\end{enumerate}
+The new site on the other hand has me doing it this way
+\begin{enumerate}
+\item setup the lists of edge and vertex data
+\item create a new mesh
+\item change the mesh data to match the pydata
+\item update the mesh
+\item create a new object from the mesh
+\item (\emph{Optional}) overwrite the object's .data using the mesh data
+\item link the object to the scene
+\item (\emph{Optional}) select the new object
+\end{enumerate}
+
+\subsubsection*{Trying out grammar-blender interface}
+I am going to use a grammar with the following production rules to test out the interface
+\begin{math}
+  A \to relabel(E) \\
+  B \to grow(CDA)  \\
+  C \to relabel(B) \\
+  D \to grow(ABF)  \\
+  E \to grow(FCD)  \\
+  F \to relabel(E)
+\end{math}
+
+I will use this grammar and model the system at various break points (for starters I am planning on doing 0, 1, 5, 20, 50).
 
 
 % ----------------------------------------------------------

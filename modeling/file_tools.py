@@ -18,7 +18,7 @@ import bpy
 ###
 def save_as(filename,ABSOLUTE=False):
 
-    DEFAULTPATH="/home/ahilton/thesis-repo/modeling/blendfiles/"
+    DEFAULTPATH="/home/ahilton/thesis-repo/modeling/blenderfiles/"
     if not ABSOLUTE:
         filename = DEFAULTPATH + filename
 
@@ -30,3 +30,15 @@ def save_as(filename,ABSOLUTE=False):
 def save():
     bpy.ops.wm.save_mainfile()
 
+
+
+###
+# adds a scene to the current project and switches to it
+#
+# if a scenename is provided then the new scene will be called that
+# otherwise the blender default for new scenes is used
+###
+def addScene(sceneName=None):
+    bpy.ops.scene.new()
+    if sceneName is not None:
+        bpy.context.scene.name = sceneName
