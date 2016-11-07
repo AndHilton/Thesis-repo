@@ -24,12 +24,16 @@ defaultLabels = ["A","B","C","D"]
 
 ###
 # Returns a list of faces at the "default" location for a tetrahedron
+#
+# a list of labels (or flat string) to be used in the initial configuration
+# can be given
 ###
-def buildDefaultTetra():
+def buildDefaultTetra(labels=defaultLabels):
+    labels = list(labels)
     vertices = [np.array(v) for v in defaultPoints]
     combos = itertools.combinations(vertices,3)
     faces = []
-    for label,vertices in zip(defaultLabels,combos):
+    for label,vertices in zip(labels,combos):
         nextFace = Face(label,vertices[0],vertices[1],vertices[2])
         faces.append(nextFace)
     return faces
