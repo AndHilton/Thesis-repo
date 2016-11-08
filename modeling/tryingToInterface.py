@@ -24,20 +24,22 @@ def main():
     print(secString)
 
     # File constants
-    filename = "tryingtointerface.blend"
+    filename = "tryingtointerface_2.blend"
     breakPoints = [0,
                    1,
                    5,
+                   10,
                    20,
                    50]
-#    breakPoints = breakPoints[:3]  # **Modify this to change the range of breakpoints**
+    breakPoints = breakPoints[:4]  # **Modify this to change the range of breakpoints**
+    print(breakPoints[-1])
     
     ## Grammar Definition ##
     LHS = ["A","B","C","D","E","F"]
     RHS = [("relabel","E"),
            ("grow","CDA"),
            ("relabel","B"),
-           ("grow","ABF"),
+           ("rest",""),
            ("grow","FCD"),
            ("relabel","E")]
     ruledic = dict(zip(LHS,RHS))
