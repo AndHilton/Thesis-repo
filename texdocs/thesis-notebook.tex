@@ -77,6 +77,7 @@ Frankie talked about noise in simulation.  According to John, Jakobi has a good 
 After lab meeting today I forced John to talk with me about my project.	 He is suggesting that I use the tetrahedral face-grammar \cite{Rieffel:face-grammar} going forward, but that I should port the existing code into python for ease of use.  He is going to send me the C code that he has somewhere, afterwards I am going to rewrite the system in Python.  The basic idea is that the subdivide operation is going to be removed from the grammar for ease of use (it made certain parts to complicated).  After that the basic idea of the system is that there is a queue of the the faces (including labels) and every iteration you dequeue the first face, apply the appropriate rewrite rule and queue that into the next iteration's queue.  The system itself really only needs to concern itself with each face, and the points it is associated with.  This type of system would work well with STL format files, but Blender has some interfacing with Python so it would be good to look at both of those for the visual representation of the grammar.  Next steps are to work on those pieces, and start to come up with questions myself.
 
 \subsection{Where did that algorithm type-up go?}
+It is probably saved locally to my other laptop, and I just forgot to push.  I wonder what other work I am missing from there.
 
 %----------------------------------------------------------
 
@@ -253,10 +254,14 @@ I will use this grammar and model the system at various break points (for starte
 I was able to generate renders of the grammar for up to 5 iterations (and more) however I ran into a few problems.  For starters blender is not rendering the shapes as regular tetrahedra, they are sort of irregularly shaped, which makes the productions of the grammar look a little bit funky.  The other problem I am running into is while it only takes a couple of seconds to produce and render the first 5 or so iterations of the grammar, it was upwards of 10 minutes to get to 20 iterations.  I am going to set it up to run overnight and run a clock on it to see how long it takes to run the full thing (running it in the background with the time tool and gonna save the output of that to a log somewhere).  Overall pretty successful as I am only a couple of tweaks away from having a working grammar system and modeling system.  Next steps will be to fix the render so it looks right, \emph{potentially} optimize the system to not run for forever, and to make my poster.
 
 
-\subsection{Monday, November \nt{7}}
+\subsection{Monday, November \nth{7}}
 
 \subsubsection{Brief talk John}
 John says that things look a little bit wonky, I don't disagree.  He wants me to check my math to make sure that things are behaving correctly, and to see if the the grown faces are actually getting removed from the system.  There seems to be some weird overlap between some of the faces so maybe there is an issue with the calculations or the faces getting removed.  John also wants me to add a ``do-nothing'' operation to the genome.  He also wants me to export things to an stl automatically.  So I have to go back and make a lot of changes to the system as is and also figure out how STL works.
+
+
+\subsection{Tuesday, November \nth{8}}
+Submitted poster and got it printed.  The one thing that John mentioned about the submitted draft was that I probably had too many titles (Title, Subtitle, and Research Question as a Header) but that's whatever.  Looking forward to finishing up the term I am just going to focus on getting the grammar and the model working as I want them.  This means that I want to be able to render full shapes (not just the wireframe) and actually be able to render images from the scenes.  I am going to limit myself to just doing 10 iterations max for the next bit, at least until I am able to set these up to run in the background or on a remote machine.  I also need to work on generating STL files.  Other than those I am not going to worry too much about implementation details over the next two weeks.  However I do need to start thinking about working on my write-up.  Over the next few days I am going to focus on catching up with work in my other classes.  I should also start thinking about emailing some of the contacts I got from the job fair, because the real world is unfortunately a thing.
 
 % ----------------------------------------------------------
 
