@@ -27,9 +27,9 @@ def add_tetraFace(vertList,name,FACES=True):
     
     meshName = name + "_data"
     faceMesh = bpy.data.meshes.new(meshName)
-    faceMesh.from_pydata(vertList,edges,faces)
-    faceMesh.show_double_sided = True
-    faceMesh.update()
+    faceMesh.from_pydata(vertList,edges,[])
+    #faceMesh.show_double_sided = True
+    faceMesh.update(calc_tessface=True)
 
     faceObj = bpy.data.objects.new(name,faceMesh)
 

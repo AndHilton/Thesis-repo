@@ -42,3 +42,6 @@ def addScene(sceneName=None):
     bpy.ops.scene.new()
     if sceneName is not None:
         bpy.context.scene.name = sceneName
+
+
+

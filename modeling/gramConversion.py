@@ -17,3 +17,15 @@ import numpy
 def face_toVertList(gramFace):
     vertList = [tuple(arr.tolist()) for arr in gramFace.getVertices()]
     return vertList
+
+
+###
+# takes in a GrammarRun object, and adds geometry to the current project
+# and scene to represent the current state of the GrammarRun
+###
+def modelGrammar(gramRun):
+    faceList = gramRun.getFaces()
+    for idx in range(len(faceList)):
+        vertList = face_toVertList(faceList[idx])
+        modeling.add_geometry.add_tetraFace(vertList,"Face{}".format(idx))
+    

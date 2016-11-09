@@ -1,11 +1,7 @@
 ### ------------------------------------------------------------
 """
-<<<<<<< HEAD
-This module just provides tools to generate faces easily
-=======
 A module containing utilities for building faces and tetrahedron
 for the grammar
->>>>>>> grammarsys
 
 Author : AHilton
 """
@@ -19,7 +15,7 @@ import itertools
 defaultPoints = [[0,0,0],
                  [1,0,0],
                  [1/2,math.sqrt(3)/2,0],
-                 [1/2,1/(2*math.sqrt(3)),math.sqrt(3/2)]]
+                 [1/2,1/(2*math.sqrt(3)),math.sqrt(2/3)]]
 defaultLabels = ["A","B","C","D"]
 
 ###

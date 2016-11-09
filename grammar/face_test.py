@@ -7,10 +7,12 @@ is working as intended
 
 #import sys
 #sys.path.insert(0,"/home/ahilton/thesis-repo/grammar")
+import facebuilder
 from Face import Face
 import numpy as np
 import math
 import calculations as calc
+from itertools import combinations
 
 ERRORVALUE = 10^(12)
 threshold = np.array([ERRORVALUE,ERRORVALUE,ERRORVALUE])
@@ -21,6 +23,8 @@ def main():
     test_extend()
     print("\n\n{}\n\n".format("-"*30))
     test_vertexEq()
+
+    test_facebuild()
 
 
 def test_constructor():
@@ -56,6 +60,14 @@ def test_vertexEq():
         same = calc.vertexEq(xnorm,result)
         print("are they close enough?  {}".format(same))
 
+
+def test_facebuild():
+    print ("Testing the initial startup conditions of the default setup")
+    faces = facebuilder.buildDefaultTetra()
+    print("Going through each edge of each face to make sure they are all length 1")
+    for face in faces:
+        for edgetuple in combinations(face.vertices,2):
+            assert np.linalg.norm(edgetuple[0]-edgetuple[1]) == 1
     
 def build_default_face():
     label = "A"
