@@ -20,14 +20,14 @@ import modeling
 def add_tetraFace(vertList,name,FACES=True):
 
     edges = [[0,1],[1,2],[2,0]]
-    faces = [[1,2,3]]
+    faces = [[0,1,2]]
 
     if not FACES:
         faces = []
     
     meshName = name + "_data"
     faceMesh = bpy.data.meshes.new(meshName)
-    faceMesh.from_pydata(vertList,edges,[])
+    faceMesh.from_pydata(vertList,edges,faces)
     #faceMesh.show_double_sided = True
     faceMesh.update(calc_tessface=True)
 

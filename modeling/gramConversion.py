@@ -27,5 +27,5 @@ def modelGrammar(gramRun):
     faceList = gramRun.getFaces()
     for idx in range(len(faceList)):
         vertList = face_toVertList(faceList[idx])
-        modeling.add_geometry.add_tetraFace(vertList,"Face{}".format(idx))
+        modeling.add_geometry.add_tetraFace(vertList,"Face")
     
