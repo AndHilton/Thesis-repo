@@ -5,8 +5,11 @@ in order to help the automation process of generating models
 """
 ### ------------------------------------------------------------
 
-
-import bpy
+try:
+    import bpy
+except ImportError:
+    print("Module bpy not found: Blender interfaces will raise errors")
+    pass
 
 
 ###
@@ -35,13 +38,12 @@ def save():
 ###
 # adds a scene to the current project and switches to it
 #
-# if a scenename is provided then the new scene will be called that
+# if a scenename pis provided then the new scene will be called that
 # otherwise the blender default for new scenes is used
 ###
 def addScene(sceneName=None):
     bpy.ops.scene.new()
     if sceneName is not None:
         bpy.context.scene.name = sceneName
-
 
 
