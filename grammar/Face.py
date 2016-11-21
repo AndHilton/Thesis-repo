@@ -10,6 +10,7 @@ Author: AHilton
 
 import numpy as np
 import math
+import calculations
 
 class Face:
 
@@ -39,6 +40,8 @@ class Face:
     ##
     def calcExtension(self):
 
+#        pVec = self.vertices[calculations.findClosest(self.vertices)]
+#        vertsMinus = self.vertices.copy().remove(pVec)
         pVec = self.vertices[0]
         vertPrime = [vec - pVec for vec in self.vertices]
         uVec = vertPrime[1]

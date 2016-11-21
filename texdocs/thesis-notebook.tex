@@ -13,6 +13,10 @@
 \usepackage{amsmath}
 \usepackage{amsthm}
 \usepackage{amssymb}
+\usepackage{graphicx}
+
+
+\graphicspath{ {images/} }
 
 
 % This is the main file for a Notebook I will be keeping while working on my thesis
@@ -28,6 +32,7 @@
 
 
 % ----------------------------------------------------
+\sloppy
 \section{Week of October \nth{2}, 2016}
 
 \subsection{Goals for the Week}
@@ -240,12 +245,14 @@ The new site on the other hand has me doing it this way
 \subsubsection{Trying out grammar-blender interface}
 I am going to use a grammar with the following production rules to test out the interface
 \begin{displaymath}
-  A \to relabel(E) \\
-  B \to grow(CDA)  \\
-  C \to relabel(B) \\
-  D \to grow(ABF)  \\
-  E \to grow(FCD)  \\
-  F \to relabel(E)
+\begin{matrix}
+  A & \to & relabel(E) \\
+  B & \to & grow(CDA)  \\
+  C & \to & relabel(B) \\
+  D & \to & grow(ABF)  \\
+  E & \to & grow(FCD)  \\
+  F & \to & relabel(E)
+\end{matrix}
 \end{displaymath}
 
 I will use this grammar and model the system at various break points (for starters I am planning on doing 0, 1, 5, 20, 50).
@@ -262,6 +269,50 @@ John says that things look a little bit wonky, I don't disagree.  He wants me to
 
 \subsection{Tuesday, November \nth{8}}
 Submitted poster and got it printed.  The one thing that John mentioned about the submitted draft was that I probably had too many titles (Title, Subtitle, and Research Question as a Header) but that's whatever.  Looking forward to finishing up the term I am just going to focus on getting the grammar and the model working as I want them.  This means that I want to be able to render full shapes (not just the wireframe) and actually be able to render images from the scenes.  I am going to limit myself to just doing 10 iterations max for the next bit, at least until I am able to set these up to run in the background or on a remote machine.  I also need to work on generating STL files.  Other than those I am not going to worry too much about implementation details over the next two weeks.  However I do need to start thinking about working on my write-up.  Over the next few days I am going to focus on catching up with work in my other classes.  I should also start thinking about emailing some of the contacts I got from the job fair, because the real world is unfortunately a thing.
+
+
+\subsection{Wednesday, November \nth{9}}
+Some exciting things happened today, which is good because I needed something to distract me from the fact that holysh*t Trump is the President.
+
+\subsubsection{Basic Outline}
+\begin{itemize}
+\item Figured out how to make the faces appear on blender meshes
+\item Found a grammar that produces an interesting shape\footnote{read: ``not a ball''}.  Praise be to Gram14
+\item Turns out STL formatting is pretty easy
+\item 3D printed a thing!
+\end{itemize}
+
+\subsubsection{The Blender Mesh Face Problem}
+So it turns out that the face argument in the mesh.from\_pydata method is supposed to be a list a list of indices, the kind that start counting from zero, like basically all things with computers.  This also solved the segfault issue that Blender was whining about.  In essence this made the faces stop looking like otherworldly geometries and start to look like actual pyramids.  Aparently being able to render the faces also solved the issue of not being able to make rendered images of the scenes, because I can now be a little bit more official than taking screenshots.  Sidenote the models look really cool now that they can be seen.
+
+\subsubsection{Grammar 14!}
+After fiddling around with some grammars and showing John that I was actually able to render the faces, he told me that he wants interesting looking shapes, i.e. I should start sampling random grammars to see what I can produce.  So I made basically a dumb GA that just gets random configurations of grammars (going to introduce a random start configuration).  From this I mostly got grammars that don't produce anything (only takes a generation or 2 to reach a stable state) or or makes more random balls.  However I did find one grammar in the 15 I produced that actually produced something that looked nice.  In 10 iterations, Grammar 14 produced a shape that actually was kind of interesting to look at.
+\begin{displaymath}
+  \begin{matrix}
+    A & \to & grow(CCA) \\
+    B & \to & rest() \\
+    C & \to & relabel(D) \\
+    D & \to & grow(BBD)
+  \end{matrix}
+\end{displaymath}
+The shape produced by the looks something like Figure \ref{fig:gram14render} \\
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=5cm, height=3cm]{gram14}
+  \caption{Render of Grammar 14 after 10 iterations}
+  \label{fig:gram14render}
+\end{figure} \\
+When I showed the shape that this grammar produced John literally did a happy dance.
+
+\subsubsection{STL file format}
+After I showed John the Grammar 14 results he told me I should figure out the stl file format so that I could print it out.  I told him I had been looking but I couldn't find any good resources to tell me what actually goes into an stl file, and what it all means.  He then tried to google it to make it seem like it was easy, and I was kind of proven right when he couldn't find anything good immediately.  I then found out that he had been using a matlab script\footnote{yuck} to do this kind of thing from before.  He then emailed me some of the stuff he had been doing but I was basically able to figure it out.  In essence the whole file is enclosed between ``solid'' tags, and each face is enclosed in ``facet'' and ``loop'' tags.  I was able to implement this fairly quickly, and now I have a method that isn't the blender API to model the grammars.  Because of this I might avoid using the blender scripts for a bit, just because it makes things a little bit easier.  However this will require moving around some functions and modules so that they don't rely on the bpy functionality.  This might mean creating a sub-package that contains the files that specifically rely on that stuff.  Being able to just write grammars into stl files will make passing the data much easier later on when I need to have communication between the 3 parts of the system, as I will probably just be able to do it all within a Python script, and not have to invoke blender from the command line.
+
+\subsubsection{3D printed a thing}
+After I was able to create the STL conversion I was able to get one of the minions in the 3D printing lab to print out the stl of grammar 14.  It will be ready to pick up in the morning, so I will have something to show tomorrow during the poster session.
+
+\subsubsection{Things to do after this}
+The next big things that I need to figure out are how to deal with collisions, and what the heck is happening with negative pyramids (see the productions of Grammar6).  These sorts of things can wait a couple of days while I get the rest of my life back on track.
+
 
 % ----------------------------------------------------------
 
