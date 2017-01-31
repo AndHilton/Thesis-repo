@@ -1,0 +1,2 @@
+Info: Total files 0 | Changed 0 | Failed 0
+Writing: /tmp/tryingtointerface.crash.txt

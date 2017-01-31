@@ -1,0 +1,5 @@
+Info: Total files 0 | Changed 0 | Failed 0
+
+Sent an internal break event. Press ^C again to kill Blender
+
+Blender killed
