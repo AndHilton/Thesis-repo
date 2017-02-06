@@ -8,9 +8,9 @@ Includes:
 """
 ### ------------------------------------------------------------
 
-import sys
-sys.path.insert(0,"/home/ahilton/thesis-repo/grammar/")
-sys.path.insert(0,"/home/ahilton/thesis-repo/modeling/")
+#import sys
+#sys.path.insert(0,"/home/ahilton/thesis-repo/grammar/")
+#sys.path.insert(0,"/home/ahilton/thesis-repo/modeling/")
 
 try:
     import bpy
@@ -19,4 +19,4 @@ except ImportError:
 else:
     import file_tools
     import add_geometry
-import gramConversion
+import modeling.gramConversion

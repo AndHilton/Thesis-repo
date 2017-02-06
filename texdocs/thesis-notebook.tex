@@ -314,6 +314,19 @@ After I was able to create the STL conversion I was able to get one of the minio
 The next big things that I need to figure out are how to deal with collisions, and what the heck is happening with negative pyramids (see the productions of Grammar6).  These sorts of things can wait a couple of days while I get the rest of my life back on track.
 
 
+\section{Week of January \nth{29} 2017}
+
+
+\subsection{Thursday, February \nth{2}}
+
+\subsubsection{Finally Get Back to Working}
+After a long period of ignoring my work, I finally sat down and started to make some changes.  I was eventually able to figure out what was wrong with the extensions in the negative direction.  After generating an STL solid using the default base-face, and the its two extension, I noticed that what I had thought was a skewed extension was just the reflection of the positive extension across the origin.  As it turns out the calcExtensions method was returning the positive extension, and the positive extension times -1.  To fix this I changed the return values to be the extension (scaled-orthogonal + center-vector) and the negative extension ((-1) scaled-orthogonal + center-vector).  This produced something that more closely resembled the expected results.
+
+\subsubsection{So Now for the Bad News}
+The current state of my system is not very hospitable.  I can't tell if it's just because I haven't touched anything in a while, or I am overthinking how things should be organized, or if there is just something inherently flawed in my organizational system, but right now I feel like there is something obtuse about the system and I would like to streamline it.  The biggest problems I think come from the package structure \footnote{mainly that I don't know how to build it} and the modeling side, which I feel is cluttered.  I have been trying to meet with John about this all week and he has been unable to meet.
+
+
+
 % ----------------------------------------------------------
 
 \bibliography{centralbib}

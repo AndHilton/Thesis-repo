@@ -19,3 +19,7 @@ def add_paths():
     f = open(pathfile,"r")
     for line in f:
         sys.path.insert(0,line.strip())
+
+
+if __name__ == "__main__":
+    add_paths()

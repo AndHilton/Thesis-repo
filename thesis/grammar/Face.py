@@ -10,7 +10,7 @@ Author: AHilton
 
 import numpy as np
 import math
-import calculations
+import grammar.calculations
 
 class Face:
 
@@ -52,5 +52,6 @@ class Face:
         ortho = np.cross(uVec,vVec)
         scaleOrtho = ortho/np.linalg.norm(ortho) * height
         extend = (scaleOrtho + cVec) + pVec
-        return (extend,-extend)
+        minus_extend = (-1 * scaleOrtho + cVec) + pVec
+        return (extend,minus_extend)
     

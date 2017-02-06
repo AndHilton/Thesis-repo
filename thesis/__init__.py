@@ -9,8 +9,8 @@ Includes
 """
 ### -----------------------------------------------------------------
 
-from add_thesis_to_pypath import *
-add_paths()
+#from add_thesis_to_pypath import *
+#add_paths()
 
 import thesis.grammar as grammar
 import thesis.modeling as modeling

@@ -11,14 +11,14 @@ Includes:
 """
 ### ------------------------------------------------------------
 
-import sys
-sys.path.insert(0,"/home/ahilton/thesis-repo/grammar/")
+#import sys
+#sys.path.insert(0,"/home/ahilton/thesis-repo/grammar/")
 
-from Face import Face
-from GrammarRun import GrammarRun
-import facebuilder
-import runcontroller
-import calculations
+from grammar.Face import Face
+from grammar.GrammarRun import GrammarRun
+import grammar.facebuilder
+import grammar.runcontroller
+import grammar.calculations
 
 
 __all__ = ['facebuilder','runcontroller','calculations']
