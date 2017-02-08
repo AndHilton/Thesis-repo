@@ -38,6 +38,12 @@ class Face:
         return self.vertices
 
     ##
+    # Returns the point at the center of the face
+    ##
+    def centerVec(self):
+        return sum(self.vertices)/len(self.vertices)
+    
+    ##
     # Calculates the positions of the 2 possible extensions of the face.  Returns the two vertices as a tuple
     ##
     def calcExtension(self):

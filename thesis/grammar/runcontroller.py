@@ -43,19 +43,25 @@ def relabel(gramRun,face,paramsList):
 ###
 def grow(gramRun,face,paramsList):
     exts = face.calcExtension()
-    truths = []
-    for vertex in gramRun.vertices:
-        truths.append(calc.vertexEq(exts[0],vertex))
-    if True not in truths:
-        newVertex = exts[0]
-    else:
-        newVertex = exts[1]
 
+    # truths = []
+    # for vertex in gramRun.vertices:
+    #     truths.append(calc.vertexEq(exts[0],vertex))
+    # if True not in truths:
+    #     newVertex = exts[0]
+    # else:
+    #     newVertex = exts[1]
+
+    vertex = face.inside
+    if calc.vertexEq(exts[0],vertex):
+        newVertex = exts[1]
+    elif calc.vertexEq(exts[1],vertex):
+        newVertex = exts[0]
     newFaces = []
     oldVs = face.getVertices()
-    newFaces.append(Face(paramsList[0],oldVs[0],oldVs[1],newVertex))
-    newFaces.append(Face(paramsList[1],oldVs[1],oldVs[2],newVertex))
-    newFaces.append(Face(paramsList[2],oldVs[2],oldVs[0],newVertex))
+    newFaces.append(Face(paramsList[0],[oldVs[0],oldVs[1],newVertex],oldVs[2]))
+    newFaces.append(Face(paramsList[1],[oldVs[1],oldVs[2],newVertex],oldVs[0]))
+    newFaces.append(Face(paramsList[2],[oldVs[2],oldVs[0],newVertex],oldVs[1]))
 
     return (newFaces,newVertex)
 
