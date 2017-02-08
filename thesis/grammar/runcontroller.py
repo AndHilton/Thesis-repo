@@ -42,21 +42,8 @@ def relabel(gramRun,face,paramsList):
 # returns a tuple containing a list of the new faces, and the new Vertex
 ###
 def grow(gramRun,face,paramsList):
-    exts = face.calcExtension()
-
-    # truths = []
-    # for vertex in gramRun.vertices:
-    #     truths.append(calc.vertexEq(exts[0],vertex))
-    # if True not in truths:
-    #     newVertex = exts[0]
-    # else:
-    #     newVertex = exts[1]
-
-    vertex = face.inside
-    if calc.vertexEq(exts[0],vertex):
-        newVertex = exts[1]
-    elif calc.vertexEq(exts[1],vertex):
-        newVertex = exts[0]
+    
+    newVertex = face.growOut()
     newFaces = []
     oldVs = face.getVertices()
     newFaces.append(Face(paramsList[0],[oldVs[0],oldVs[1],newVertex],oldVs[2]))
@@ -89,7 +76,7 @@ opMap = {"relabel":relabel, "grow":grow, "rest":rest}
 def startGrammarRun(geneDict,setup="default"):
     run = GR()
     
-    prodDict = {}
+    prodDict = {"none" : (rest,"")}
     for lhs,rhs in geneDict.items():
         opString = rhs[0]
         paramList = list(rhs[1])

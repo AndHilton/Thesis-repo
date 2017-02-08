@@ -10,7 +10,7 @@ Author: AHilton
 
 import numpy as np
 import math
-import grammar.calculations
+import grammar.calculations as calc
 
 class Face:
 
@@ -48,8 +48,6 @@ class Face:
     ##
     def calcExtension(self):
 
-#        pVec = self.vertices[calculations.findClosest(self.vertices)]
-#        vertsMinus = self.vertices.copy().remove(pVec)
         pVec = self.vertices[0]
         vertPrime = [vec - pVec for vec in self.vertices]
         uVec = vertPrime[1]
@@ -63,3 +61,14 @@ class Face:
         minus_extend = (-1 * scaleOrtho + cVec) + pVec
         return (extend,minus_extend)
     
+
+    ##
+    # Calculates the 2 extensions of the face and returns the one pointing out
+    ##
+    def growOut(self):
+
+        choices = self.calcExtension()
+        if calc.vertexEq(self.inside,choices[0]):
+            return choices[1]
+        else:
+            return choices[0]
