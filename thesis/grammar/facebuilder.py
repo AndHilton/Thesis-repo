@@ -11,6 +11,7 @@ import numpy as np
 from grammar import Face
 import math
 import itertools
+from grammar.calculations import isVert_inList
 
 defaultPoints = [[0,0,0],
                  [1,0,0],
@@ -27,10 +28,11 @@ defaultLabels = ["A","B","C","D"]
 def buildDefaultTetra(labels=defaultLabels):
     labels = list(labels)
     vertices = [np.array(v) for v in defaultPoints]
-    combos = itertools.combinations(vertices,3)
+    combos = list(itertools.combinations(vertices,3))
+    vertsets = [(base,ext) for base in combos for ext in vertices if not isVert_inList(ext,base)]
     faces = []
-    for label,vertices in zip(labels,combos):
-        nextFace = Face(label,vertices[0],vertices[1],vertices[2])
+    for label,sets in zip(labels,vertsets):
+        nextFace = Face(label,sets[0],sets[1])
         faces.append(nextFace)
     return faces
     

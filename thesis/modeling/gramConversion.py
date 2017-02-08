@@ -15,14 +15,20 @@ import numpy
 # to an STL file
 ###
 def outputSTL(gramRun,filename):
-    print("Writing grammar to {}".format(filename))
+    convert_facelist(gramRun.getFaces(),filename)
+
+###
+# Takes a list of faces writes them to an stl file
+###
+def convert_facelist(facelist,filename):
+    print("Writing output to {}".format(filename))
     f = open(filename,"w")
     f.write("solid foo\n")
-    for face in gramRun.getFaces():
+    for face in facelist:
         f.write(face_toSTL(face))
     f.write("endsolid foo")
     f.close
-
+    
 ###
 # takes a grammar Face and returns a string conversion to stl
 ###

@@ -16,11 +16,13 @@ class Face:
 
     vertices = None
     label = None
+    inside = None
 
-    def __init__(self,alabel,vert0,vert1,vert2):
+    def __init__(self,alabel,vertlist,innervec):
 
         self.label = alabel
-        self.vertices = [vert0,vert1,vert2]
+        self.vertices = vertlist
+        self.inside = innervec
 
 
     ##
