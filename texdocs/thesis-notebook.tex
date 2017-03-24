@@ -314,7 +314,7 @@ After I was able to create the STL conversion I was able to get one of the minio
 The next big things that I need to figure out are how to deal with collisions, and what the heck is happening with negative pyramids (see the productions of Grammar6).  These sorts of things can wait a couple of days while I get the rest of my life back on track.
 
 
-\section{Week of January \nth{29} 2017}
+\section{Week of January \nth{29}, 2017}
 
 
 \subsection{Thursday, February \nth{2}}
@@ -326,6 +326,42 @@ After a long period of ignoring my work, I finally sat down and started to make 
 The current state of my system is not very hospitable.  I can't tell if it's just because I haven't touched anything in a while, or I am overthinking how things should be organized, or if there is just something inherently flawed in my organizational system, but right now I feel like there is something obtuse about the system and I would like to streamline it.  The biggest problems I think come from the package structure \footnote{mainly that I don't know how to build it} and the modeling side, which I feel is cluttered.  I have been trying to meet with John about this all week and he has been unable to meet.
 
 
+\section{Week of February \nth{19}, 2017}
+
+\subsection{Monday, February \nth{20}}
+
+\subsubsection{Plan of Action}
+After I unfortunately had to withdraw from 499 due to a lack of progress overall, I then took my newfound time in order to catchup on my other class work, which is why I haven't added anything to the journal in quite a while.  One thing that I did start to do while I was taking a break was to change my implementation of the Face class, so now each Face has a concept of ``the inside direction.''  What this does is it implies a full tetrahedron with every face.  The ``inside'' is just a point that is the opposite vertex of the parent tetrahedron.  This changes grow so that it no longer needs to check through every single vertex in the system in order to determine which of the calculated extensions to use.  However I still need to implement the intersection detection.  My plan as of right now is to work on the underlying math given this new implementation to figure out a predicate that describes when an extension ``intersects'' another face.  Once I have done that, I am going to test the predicate to see if it behaves as expected.  Then I will have to make a design choice on what to do in the case of an intersection.  Then once that is complete I will be able to begin working on the evolutionary system.
+
+\subsection{Intersection Notes}
+I have identified a few cases that might arise when working on the extension math.
+\begin{itemize}
+\item When an extension intersects but doesn't cross a face
+\item When an extension intersects one face, but still lies within the bounds of the tetrahedron
+\item When an extension intersects two faces, placing it outside of the tetrahedron
+\end{itemize}
+The second and third cases are actually equivalent, because if you can tell that something went through the plane described by a face then it doesn't matter whether or not you know if it still lies within the tetrahedron, as the only needed information is whether or not it breaks a face's plane.
+
+\subsection{Tuesday, February \nth{21}}
+
+\subsubsection{Possible Solution to the Intersection Problem}
+I had a sneaking suspicion that what I am currently working on is already a solved problem (because why wouldn't it be).  So I investigated for a little bit to see if I could find an algorithm that could be modified to do what I need it to, and I think I one for calculating the intersection (if one exists) between a line/line segment and a plane.  What I will be doing is implementing this solution, treating a face as a plane to see if the line segment even reaches the plane described by a given face.  If there is an intersection, I will calculate the point of intersection, and check to see if the point of intersection falls within the bounds of the face.
+
+\subsubsection{General Description of Algorithm}
+\begin{enumerate}
+\item Define the line segment $\vec{u}$ by the center of the growing face $P_0$ and the calculated extension $P_1$.  The plane is defined by the center of the face $V_0$ and it's normal vector (can scale the inside vector to be orthonormal) $n$
+\item check whether the line segment is parallel to the plane by looking at the dot product of the line segment and the orthonormal of the plane $u \cdot n = 0$
+\item if the segment is parallel to the plane, check to see that it doesn't lie on the plane by taking the dot product of $n$ and the line $\vec{w} = P_0 - V_0$
+\item calculate the scalar that would produce an intersection between the planes $s_i$
+\item if $s_i$ is between 0 and 1 then the line segment itself intersects the plane, otherwise it doesn't
+\item calculate the point of intersection $P_s$, and check to see whether it falls within the bounds of the plane
+\end{enumerate}
+
+\subsection{Wednesday, February \nth{22}}
+
+\subsubsection{Point in Triangle Test}
+
+While searching the internet for algorithms for determining whether or not a point lies within a triangle.  The algorithm relies on taking the cross products of different combinations of points and using that to determine if the point lies on the ``inside half'' for a given side of the triangle, and then a compound predicate is used to check to see that it is within all 3 sides of the triangle.  I need to sleep on the algorithm to make sure that I really understand.
 
 % ----------------------------------------------------------
 

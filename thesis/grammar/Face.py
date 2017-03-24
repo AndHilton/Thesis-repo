@@ -18,6 +18,8 @@ class Face:
     label = None
     inside = None
 
+    HEIGHT = math.sqrt(2/3)
+
     def __init__(self,alabel,vertlist,innervec):
 
         self.label = alabel
@@ -40,7 +42,7 @@ class Face:
     ##
     # Returns the point at the center of the face
     ##
-    def centerVec(self):
+    def center(self):
         return sum(self.vertices)/len(self.vertices)
     
     ##
@@ -52,11 +54,10 @@ class Face:
         vertPrime = [vec - pVec for vec in self.vertices]
         uVec = vertPrime[1]
         vVec = vertPrime[2]
-        height = math.sqrt(2/3)     # this is for the Python 3 version
         cVec = sum(vertPrime)/len(vertPrime)
 
         ortho = np.cross(uVec,vVec)
-        scaleOrtho = ortho/np.linalg.norm(ortho) * height
+        scaleOrtho = ortho/np.linalg.norm(ortho) * self.HEIGHT
         extend = (scaleOrtho + cVec) + pVec
         minus_extend = (-1 * scaleOrtho + cVec) + pVec
         return (extend,minus_extend)
@@ -72,3 +73,16 @@ class Face:
             return choices[1]
         else:
             return choices[0]
+
+    ##
+    # moves the face by adding a vector to each of the vertices of the face
+    ##
+    def moveVec(self,pvec):
+        newVerts = [v + pvec for v in self.getVertices()]
+        self.vertices = newVerts
+
+    ##
+    # returns the vector norm to the plane described by the face
+    ##
+    def vecNorm(self):
+        return self.inside - self.center()

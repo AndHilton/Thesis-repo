@@ -21,4 +21,4 @@ import grammar.runcontroller
 import grammar.calculations
 
 
-__all__ = ['facebuilder','runcontroller','calculations']
+__all__ = ['facebuilder','runcontroller','calculations','Face']
