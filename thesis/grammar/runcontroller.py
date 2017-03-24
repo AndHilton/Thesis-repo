@@ -42,15 +42,19 @@ def relabel(gramRun,face,paramsList):
 # returns a tuple containing a list of the new faces, and the new Vertex
 ###
 def grow(gramRun,face,paramsList):
-    
-    newVertex = face.growOut()
-    newFaces = []
-    oldVs = face.getVertices()
-    newFaces.append(Face(paramsList[0],[oldVs[0],oldVs[1],newVertex],oldVs[2]))
-    newFaces.append(Face(paramsList[1],[oldVs[1],oldVs[2],newVertex],oldVs[0]))
-    newFaces.append(Face(paramsList[2],[oldVs[2],oldVs[0],newVertex],oldVs[1]))
 
-    return (newFaces,newVertex)
+    if growIntersects(face,gramRun.getFaces()):
+        face.changeLabel("none")
+        return ([face],None)
+    else:
+        newVertex = face.growOut()
+        newFaces = []
+        oldVs = face.getVertices()
+        newFaces.append(Face(paramsList[0],[oldVs[0],oldVs[1],newVertex],oldVs[2]))
+        newFaces.append(Face(paramsList[1],[oldVs[1],oldVs[2],newVertex],oldVs[0]))
+        newFaces.append(Face(paramsList[2],[oldVs[2],oldVs[0],newVertex],oldVs[1]))
+
+        return (newFaces,newVertex)
 
 ###
 # the function for the rest operation of the grammar
@@ -61,6 +65,17 @@ def grow(gramRun,face,paramsList):
 def rest(gramRun,face,paramsList):
     return ([face],None)
 
+###
+# goes through the list of faces and checks to see if the current face
+# intersects any of them
+###
+def growIntersects(curFace,faceList):
+    stop = False
+    i = 0
+    while i < len(faceList) and not stop:
+        stop = calc.isGrowIntersect(curFace,faceList[i])
+        i += 1
+    return stop
 
 # This dictionary maps the string id of each operation to the actual function
 opMap = {"relabel":relabel, "grow":grow, "rest":rest}
