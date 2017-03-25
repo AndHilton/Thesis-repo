@@ -65,8 +65,22 @@ def face_extension(vertlist):
 # returns true iff a grow operation on origin would intersect with target
 ###
 def isGrowIntersect(origin,target):
+    verts = origin.getVertices()
+    stop = False
+    i = 0
+    while i < len(verts) and not stop:
+        p = pointOnPlane(verts[1],origin.growOut(),target.center(),target.vecNorm())
+        stop = isPointInBounds(p,target)
+        i += 1
+    return stop
+
+###
+# the old version of the isGrowIntersect which just checks the line from the center
+# to the extension
+###
+def old_isGrowIntersect(origin,target):
     p = pointOnPlane(origin.center(),origin.growOut(),target.center(),target.vecNorm())
-    return isPointInBounds(p,target)
+    return isPointinBounds(p,target)
 
 ###
 # calculates the point in where a given line segment intersects the plane
