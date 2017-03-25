@@ -12,6 +12,7 @@ from grammar import Face
 import math
 import itertools
 from grammar.calculations import isVert_inList
+import random
 
 defaultPoints = [[0,0,0],
                  [1,0,0],
@@ -25,7 +26,11 @@ defaultLabels = ["A","B","C","D"]
 # a list of labels (or flat string) to be used in the initial configuration
 # can be given
 ###
-def buildDefaultTetra(labels=defaultLabels):
+def buildDefaultTetra(start):
+    if start == "default":
+        labels = defaultLabels
+    elif "random" in start:
+        labels = randomLabels(start[1])
     labels = list(labels)
     vertices = [np.array(v) for v in defaultPoints]
     combos = list(itertools.combinations(vertices,3))
@@ -36,4 +41,11 @@ def buildDefaultTetra(labels=defaultLabels):
         faces.append(nextFace)
     return faces
     
-
+###
+# returns a list of starting labels chosen randomly from a given pool of labels
+###
+def randomLabels(pool):
+    labels = []
+    for i in range(4):
+        labels.append(random.choice(pool))
+    return labels

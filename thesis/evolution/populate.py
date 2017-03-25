@@ -29,10 +29,12 @@ def kPopulation(k):
 # number of max_labels (default MAX_LABELS) and returns a GrammarRun
 # object with the specified rules
 ###
-def makeRandomGram(max_num = MAX_LABELS):
+def makeRandomGram(max_num = MAX_LABELS,start="default"):
     labels = generateLabels(max_num)
     ruledic = generateRuleDic(labels)
-    return control.setupRun(ruledic)
+    if start == "random":
+        start = ["random",list(ruledic.keys())]
+    return control.setupRun(ruledic,start)
 
 ###
 # generates a list of labels between the MIN_LABELS and the given max

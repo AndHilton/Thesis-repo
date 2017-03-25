@@ -84,7 +84,6 @@ opMap = {"relabel":relabel, "grow":grow, "rest":rest}
 ###
 # this sets up a grammar run given a string genome mapping, and a configuration type
 # (for now just the default one). It then returns the GrammarRun object
-#
 # ****DEPRECATED*****
 # From now on use the setupRun function
 ###
@@ -98,8 +97,7 @@ def startGrammarRun(geneDict,setup="default"):
         oper = opMap[opString]
         prodDict[lhs] = (oper,paramList)
 
-    if setup == "default":
-        faceList = fb.buildDefaultTetra()
+    faceList = fb.buildDefaultTetra(setup)
 
     run.setup(prodDict,faceList)
     return run
