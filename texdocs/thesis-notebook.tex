@@ -363,6 +363,28 @@ I had a sneaking suspicion that what I am currently working on is already a solv
 
 While searching the internet for algorithms for determining whether or not a point lies within a triangle.  The algorithm relies on taking the cross products of different combinations of points and using that to determine if the point lies on the ``inside half'' for a given side of the triangle, and then a compound predicate is used to check to see that it is within all 3 sides of the triangle.  I need to sleep on the algorithm to make sure that I really understand.
 
+
+\section{Week of March \nth{19}, 2017}
+
+\subsection{Thursday, March \nth{23}}
+
+\subsubsection{Implemented Intersection Detection}
+Finally after many hours of contemplation and deep thought, I decided it was time to bite the bullet and just try and implement the intersection detection.  Some of the issues I had to sort out were the cases of the extension being parallel to the target face, and what to do when it lay within the plane.  I decided in such a case I would just return some arbitrary point along the extension (I chose $\frac{1/2}$ the extension) and more or less hope that this would cover most of the cases.  If the line was not parallel then I used a formula involving taking the dot product of several vectors to determine the scalar coefficient of the extension line that would make it intersect the plane.  If the scalar is between 0 and 1 then the original extension itself will intersect the plane and therefore a point can be returned otherwise the line segment would not actually intersect.  Using the result of this calculation it determined whether or not the point of intersection would fall within the bounds of the target Face.  I had been able to greatly reduce the runtime of the Grammar by removing the need to check the vertices of the system on every Grow operation, however adding the intersection detection adds significant runtime to the Gow operation as it requires each grow to look at the rest of the Faces.
+\par
+There might be some cases where the new Faces produced by the operation might cross into the space of the target Face.
+
+\subsection{Friday, March \nth{24}}
+
+\subsubsection{Altering the Behavior of Grow}
+After testing the intersection detection functionality I altered the behavior of the Grow operation so that it would only execute one if the result of it would not intersect another face.  To do this it has to go through all of the faces within the Grammar and check whether or not an extension would intersect.  If it does intersect, it does not add any new faces, instead it changes the label of the current face to a new, hidden label ``none'' which is present in every Grammar, and always maps to a rest operation.
+
+\subsubsection{Revising the Intersection Detection}
+In the hopes of catching more cases of intersection I changed the implementation of the intersection detection to check all of the line segments from each of the vertices of the face, rather than just checking in reference from the center of the origin face.  This seemed to more strictly catch the overlapping faces.
+% add images of detection comparison shapes
+
+\subsubsection{Beginning to Implement the Evolutionary System}
+I began to implement some of the aspects of the evolutionary system, which I can test using a simple fitness function that will just optimize for the most number of faces.  Currently there are 2 main files in the directory, EvoRun which is a class that represents an individual evolutionary run, and the populate module.  This class is given a fitness function to optimize for, the number of iterations each grammar should apply before they should be measured for their fitness, and the size of the population to be run.  The class can then ``mature'' the entire population by the specified number of iterations, and return a ranking of each individual in the current population based on the fitness function.  I will eventually implement the generational propagation.  The populate module provides functions which generate random grammars with either the default configuration, or with random starting labels based on the labels used in the system.
+
 % ----------------------------------------------------------
 
 \bibliography{centralbib}
