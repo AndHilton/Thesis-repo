@@ -15,4 +15,4 @@ This directory contains the `LaTeX` files of my thesis text and lab notes.
 This directory contains the code to run the evolution experiment.
 
 ## Running the experiment
-For more information on how to run an evolution experiment, please see the `README` in the `thesis` directory.
+For more information on how to run an evolution experiment, please see the [`README`](thesis/README.md) in the `thesis` directory.
