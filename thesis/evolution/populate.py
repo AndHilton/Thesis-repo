@@ -19,6 +19,12 @@ MIN_LABELS = 4
 OPER_LIST = ["grow","relabel","rest"]
 
 ###
+# returns a list of k random grammars
+###
+def kPopulation(k):
+    return [makeRandomGram() for i in range(k)]
+
+###
 # creates a randomized grammar with between MIN_LABELS and a specified
 # number of max_labels (default MAX_LABELS) and returns a GrammarRun
 # object with the specified rules
