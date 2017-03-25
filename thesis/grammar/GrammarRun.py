@@ -101,3 +101,14 @@ class GrammarRun:
     ###
     def getFaces(self):
         return list(self.faceQueue)
+
+    ###
+    # returns a string representation of the grammar
+    ###
+    def grammarString(self):
+        nonTerms = [x for x in self.productions.keys() if x != "none"]
+        nonTerms.sort()
+        retStr = ""
+        for lhs in nonTerms:
+            retStr += "{}  -->  {}\n".format(lhs,self.productions[lhs][1])
+        return retStr[:-1]
