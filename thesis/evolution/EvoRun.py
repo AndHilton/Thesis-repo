@@ -13,15 +13,12 @@ Author : AHilton
 """
 ### -----------------------------------------------------------------
 
-<<<<<<< HEAD
-import grammar.runcontroller as crtl
-import grammar.GrammarRun as gRun
-import evolution.populate as pop
-=======
+import grammar as gram
+import evolution as evo
 import grammar.GrammarRun as gRun
 import evolution.populate as pop
 import evolution.evoOps as ops
->>>>>>> evosys
+
 
 class EvoRun:
 
@@ -50,10 +47,7 @@ class EvoRun:
     ##
     def applySearch(self):
         return [(gram,self.searchFun(gram)) for gram in self.population]
-<<<<<<< HEAD
-            
 
-=======
 
     ##
     # returns a list of the scores of a generation
@@ -91,4 +85,3 @@ class EvoRun:
     def nGeneration(self,n):
         for i in range(n):
             self.nextGeneration()
->>>>>>> evosys

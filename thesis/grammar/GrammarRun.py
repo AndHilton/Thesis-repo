@@ -92,14 +92,9 @@ class GrammarRun:
     # returns the list of faces currently being tracked in the system
     ###
     def getFaces(self):
-<<<<<<< HEAD:thesis/grammar/GrammarRun.py
-        return list(self.faceQueue)
-
-=======
         return list(self.opQueue)
         #return self.faces
     
->>>>>>> evosys:thesis/grammar/GrammarRun.py
     ###
     # returns a string representation of the grammar
     ###
@@ -110,8 +105,6 @@ class GrammarRun:
         for lhs in nonTerms:
             retStr += "{}  -->  {}\n".format(lhs,self.productions[lhs][1])
         return retStr[:-1]
-<<<<<<< HEAD:thesis/grammar/GrammarRun.py
-=======
 
     ###
     # returns the genotype of the grammar, which is a dictionary of the
@@ -121,4 +114,3 @@ class GrammarRun:
         genes = self.productions.copy()
         del genes["none"]
         return genes
->>>>>>> evosys:thesis/grammar/GrammarRun.py
