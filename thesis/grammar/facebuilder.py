@@ -26,7 +26,11 @@ defaultLabels = ["A","B","C","D"]
 # a list of labels (or flat string) to be used in the initial configuration
 # can be given
 ###
+<<<<<<< HEAD:thesis/grammar/facebuilder.py
 def buildDefaultTetra(start):
+=======
+def buildDefaultTetra(start="default"):
+>>>>>>> evosys:thesis/grammar/facebuilder.py
     if start == "default":
         labels = defaultLabels
     elif "random" in start:

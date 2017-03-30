@@ -19,15 +19,15 @@ from grammar import calculations as calc
 class GrammarRun:
 
     productions = None
-    faceQueue = None
-    vertices = None
+    opQueue = None
+    faces = None
     isSetup = False
     iterNum = 0
 
     def __init__(self):
         self.productions = {}
-        self.faceQueue = deque()
-        self.vertices = []
+        self.opQueue = deque()
+        self.faces = []
 
     ###
     # Sets up the initial configuration of the system given an initial list of faces
@@ -35,22 +35,11 @@ class GrammarRun:
     ###
     def setup(self,prodDict,initialFaceList):
         self.productions = prodDict
+        self.faces = initialFaceList
         for face in initialFaceList:
-            self.faceQueue.append(face)
-            if len(self.vertices) > 0:
-                for vertex in face.getVertices():
-                    found = False
-                    counter = 0
-                    while counter < len(self.vertices) and not found:
-                        found = calc.vertexEq(vertex,self.vertices[counter])
-                        counter += 1
-                    if not found:
-                        self.vertices.append(vertex)
-            else:
-                self.vertices.extend(face.getVertices())
+            self.opQueue.append(face)
         self.isSetup = True
                         
-
 
     
     ###
@@ -58,17 +47,21 @@ class GrammarRun:
     ###
     def nextStep(self):
         newQueue = deque()
-        while len(self.faceQueue) > 0:
-            current = self.faceQueue.popleft()
+        while len(self.opQueue) > 0:
+            current = self.opQueue.popleft()
             lhs = current.label
             rhs = self.productions[lhs]
             operation = rhs[0]
             paramsList = rhs[1]
             result = operation(self,current,paramsList)
-            newQueue.extend(result[0])
-            if result[1] is not None:
-                self.vertices.append(result[1])
-        self.faceQueue = newQueue
+            newQueue.extend(result)
+            self.faces += [item for item in result if item not in self.faces]
+#            if result[1]:
+#                newQueue.append(current)
+#            elif result[0] is not None:
+#                self.faces += result[0]
+#                newQueue.extend(result[0])
+        self.opQueue = newQueue
         self.iterNum += 1
 
 
@@ -87,21 +80,26 @@ class GrammarRun:
     # (i.e. returns a string of labels, in the order of the queue)
     ###
     def stringRep(self):
-        catchQueue = deque()
         retStr = ""
-        while len(self.faceQueue) > 0:
-            current = self.faceQueue.popleft()
-            retStr += current.label
-            catchQueue.append(current)
-        self.faceQueue = catchQueue
+        for current in self.getFaces():
+            if current.label == "none":
+                retStr += "x"
+            else:
+                retStr += current.label
         return retStr
 
     ###
     # returns the list of faces currently being tracked in the system
     ###
     def getFaces(self):
+<<<<<<< HEAD:thesis/grammar/GrammarRun.py
         return list(self.faceQueue)
 
+=======
+        return list(self.opQueue)
+        #return self.faces
+    
+>>>>>>> evosys:thesis/grammar/GrammarRun.py
     ###
     # returns a string representation of the grammar
     ###
@@ -112,3 +110,15 @@ class GrammarRun:
         for lhs in nonTerms:
             retStr += "{}  -->  {}\n".format(lhs,self.productions[lhs][1])
         return retStr[:-1]
+<<<<<<< HEAD:thesis/grammar/GrammarRun.py
+=======
+
+    ###
+    # returns the genotype of the grammar, which is a dictionary of the
+    # grammar rules
+    ###
+    def genotype(self):
+        genes = self.productions.copy()
+        del genes["none"]
+        return genes
+>>>>>>> evosys:thesis/grammar/GrammarRun.py

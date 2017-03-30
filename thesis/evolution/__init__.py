@@ -9,3 +9,8 @@ Includes:
 
 import evolution.populate
 from evolution.EvoRun import EvoRun
+<<<<<<< HEAD
+=======
+import evolution.trial
+import evolution.evoOps
+>>>>>>> evosys

@@ -18,6 +18,8 @@ from grammar import facebuilder as fb
 ###     GRAMMAR OPERATIONS    ###
 ### ------------------------- ###
 
+# GRAM_OPS = [relabel,grow,rest]
+
 ###
 # The function for the relabel operation of the grammar
 # takes in a grammar run, the face being operated on, and a list
@@ -31,7 +33,7 @@ from grammar import facebuilder as fb
 def relabel(gramRun,face,paramsList):
     newLabel = paramsList[0]
     face.changeLabel(newLabel)
-    return ([face],None)
+    return [face]
 
 
 ###
@@ -42,6 +44,7 @@ def relabel(gramRun,face,paramsList):
 # returns a tuple containing a list of the new faces, and the new Vertex
 ###
 def grow(gramRun,face,paramsList):
+<<<<<<< HEAD:thesis/grammar/runcontroller.py
 
     if growIntersects(face,gramRun.getFaces()):
         face.changeLabel("none")
@@ -49,12 +52,24 @@ def grow(gramRun,face,paramsList):
     else:
         newVertex = face.growOut()
         newFaces = []
+=======
+    face.changeLabel("none")
+    if growIntersects(face,gramRun.getFaces()):
+        return [face]
+    else:
+        newVertex = face.growOut()
+        newFaces = [face]
+>>>>>>> evosys:thesis/grammar/runcontroller.py
         oldVs = face.getVertices()
         newFaces.append(Face(paramsList[0],[oldVs[0],oldVs[1],newVertex],oldVs[2]))
         newFaces.append(Face(paramsList[1],[oldVs[1],oldVs[2],newVertex],oldVs[0]))
         newFaces.append(Face(paramsList[2],[oldVs[2],oldVs[0],newVertex],oldVs[1]))
+<<<<<<< HEAD:thesis/grammar/runcontroller.py
 
         return (newFaces,newVertex)
+=======
+        return newFaces
+>>>>>>> evosys:thesis/grammar/runcontroller.py
 
 ###
 # the function for the rest operation of the grammar
@@ -63,7 +78,7 @@ def grow(gramRun,face,paramsList):
 # returns a tuple containing a list containing the original face, and None
 ###
 def rest(gramRun,face,paramsList):
-    return ([face],None)
+    return [face]
 
 ###
 # goes through the list of faces and checks to see if the current face

@@ -13,9 +13,15 @@ Author : AHilton
 """
 ### -----------------------------------------------------------------
 
+<<<<<<< HEAD
 import grammar.runcontroller as crtl
 import grammar.GrammarRun as gRun
 import evolution.populate as pop
+=======
+import grammar.GrammarRun as gRun
+import evolution.populate as pop
+import evolution.evoOps as ops
+>>>>>>> evosys
 
 class EvoRun:
 
@@ -44,5 +50,45 @@ class EvoRun:
     ##
     def applySearch(self):
         return [(gram,self.searchFun(gram)) for gram in self.population]
+<<<<<<< HEAD
             
 
+=======
+
+    ##
+    # returns a list of the scores of a generation
+    ##
+    def getScores(self):
+        pairs = self.applySearch()
+        scores = [p[1] for p in pairs]
+        return scores
+    ##
+    # returns the most-fit individual in the current population
+    ##
+    def getAlpha_individual(self):
+        return self.getAlpha()[0]
+
+    def getAlpha(self):
+        self.maturePopulation()
+        return max(self.applySearch(),key=lambda pair: pair[1])
+
+    def getAlpha_score(self):
+        return self.getAlpha()[1]
+
+    ##
+    # forwards the generation by 1
+    ##
+    def nextGeneration(self):
+        self.maturePopulation()
+        print("Propagating Generation {}".format(self.generation))
+        self.population = ops.propagate(self.applySearch())
+        self.generation += 1
+        self.mature = False
+
+    ##
+    # simulates n generations of the run
+    ##
+    def nGeneration(self,n):
+        for i in range(n):
+            self.nextGeneration()
+>>>>>>> evosys

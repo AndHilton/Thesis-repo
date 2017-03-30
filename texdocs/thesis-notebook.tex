@@ -363,6 +363,7 @@ I had a sneaking suspicion that what I am currently working on is already a solv
 
 While searching the internet for algorithms for determining whether or not a point lies within a triangle.  The algorithm relies on taking the cross products of different combinations of points and using that to determine if the point lies on the ``inside half'' for a given side of the triangle, and then a compound predicate is used to check to see that it is within all 3 sides of the triangle.  I need to sleep on the algorithm to make sure that I really understand.
 
+<<<<<<< HEAD
 
 \section{Week of March \nth{19}, 2017}
 
@@ -385,6 +386,8 @@ In the hopes of catching more cases of intersection I changed the implementation
 \subsubsection{Beginning to Implement the Evolutionary System}
 I began to implement some of the aspects of the evolutionary system, which I can test using a simple fitness function that will just optimize for the most number of faces.  Currently there are 2 main files in the directory, EvoRun which is a class that represents an individual evolutionary run, and the populate module.  This class is given a fitness function to optimize for, the number of iterations each grammar should apply before they should be measured for their fitness, and the size of the population to be run.  The class can then ``mature'' the entire population by the specified number of iterations, and return a ranking of each individual in the current population based on the fitness function.  I will eventually implement the generational propagation.  The populate module provides functions which generate random grammars with either the default configuration, or with random starting labels based on the labels used in the system.
 
+=======
+>>>>>>> evosys
 % ----------------------------------------------------------
 
 \bibliography{centralbib}
