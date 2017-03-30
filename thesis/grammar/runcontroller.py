@@ -49,6 +49,7 @@ def grow(gramRun,face,paramsList):
         return [face]
     else:
         newFaces = [face]
+        newVertex = face.growOut()
         oldVs = face.getVertices()
         newFaces.append(Face(paramsList[0],[oldVs[0],oldVs[1],newVertex],oldVs[2]))
         newFaces.append(Face(paramsList[1],[oldVs[1],oldVs[2],newVertex],oldVs[0]))
