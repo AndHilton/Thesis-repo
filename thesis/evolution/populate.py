@@ -21,7 +21,8 @@ OPER_LIST = ["grow","relabel","rest"]
 ###
 # returns a list of k random grammars
 ###
-def kPopulation(k):
+def kPopulation(k,seed):
+    random.seed(seed)
     return [makeRandomGram() for i in range(k)]
 
 ###

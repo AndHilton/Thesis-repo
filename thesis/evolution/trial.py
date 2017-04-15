@@ -31,6 +31,16 @@ def executeRun(hFun,gen = GENERATION,pop = POPULATION,mature = MATURITY):
     return run
 
 ###
+# executes an evolutionary run, but logs all the data to a file
+# instead of printing to stdout
+###
+# def executeLoggedRun(hfun,logfile,gen=GENERATION,pop=POPULATION,mature=MATURITY):
+#     run = evo.EvoRun(hfun,mature,pop)
+#     lines = []
+#     lines += metricsStr(gen,pop,mature)
+    
+
+###
 # prints out the parameters of the run
 ###
 def print_run_metrics(gen,pop,mature):
@@ -63,7 +73,8 @@ def print_results(erun):
     avg_score = sum(final_scores)/len(final_scores)
     print("="*65)
     print("Final Results:")
+    print("ID: {}".format(runID))
     print("\tTop Fitness Score: {}".format(erun.getAlpha_score()))
-    print("\tAverage Fitness: {}".format(avg_score))
+#    print("\tAverage Fitness: {}".format(avg_score))
     print("="*65)
     

@@ -18,20 +18,29 @@ import evolution as evo
 import grammar.GrammarRun as gRun
 import evolution.populate as pop
 import evolution.evoOps as ops
+import random
 
+#SEED_RANGE = 10 ** 5
 
 class EvoRun:
 
+    id_num = 0
     searchFun = None
     population = None
     iterNum = 0
     generation = 0
     mature = False
+    tops = []
 
-    def __init__(self,hSearch,iterNum,k):
+    def __init__(self,hSearch,iterNum,k,seed=None):
+        if seed is None:
+            self.id_num = random.random()
+        else:
+            self.id_num = seed
         self.searchFun = hSearch
         self.iterNum = iterNum
-        self.population = pop.kPopulation(k)
+        self.population = pop.kPopulation(k,self.id_num)
+        self.tops = []
 
     ##
     # applies production rules to each individual in the population
@@ -59,23 +68,33 @@ class EvoRun:
     ##
     # returns the most-fit individual in the current population
     ##
-    def getAlpha_individual(self):
-        return self.getAlpha()[0]
+    def getAlpha_individual(self,pop=None):
+        return self.getAlpha(pop)[0]
 
-    def getAlpha(self):
-        self.maturePopulation()
-        return max(self.applySearch(),key=lambda pair: pair[1])
+    def getAlpha(self,pop=None):
+        if pop is None:
+            self.maturePopulation()
+            pop = self.applySearch()
+        return max(pop,key=lambda pair: pair[1])
 
-    def getAlpha_score(self):
-        return self.getAlpha()[1]
+    def getAlpha_score(self,pop=None):
+        return self.getAlpha(pop)[1]
 
+    ##
+    # returns a list containing all of the alpha individuals for every generation
+    ##
+    def getHistory(self):
+        return self.tops
+    
     ##
     # forwards the generation by 1
     ##
     def nextGeneration(self):
         self.maturePopulation()
-        print("Propagating Generation {}".format(self.generation))
-        self.population = ops.propagate(self.applySearch())
+        #print("Propagating Generation {}".format(self.generation))
+        scores = self.applySearch()
+        self.population = ops.propagate(scores)
+        self.tops += self.getAlpha_individual(scores)
         self.generation += 1
         self.mature = False
 
@@ -85,3 +104,10 @@ class EvoRun:
     def nGeneration(self,n):
         for i in range(n):
             self.nextGeneration()
+
+    ##
+    # gets the identifier for the run
+    ##
+    def runID(self):
+        return "run_{}".format(str(self.id_num)[2:])
+    
