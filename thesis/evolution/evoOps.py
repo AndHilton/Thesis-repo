@@ -12,6 +12,7 @@ Author : AHilton
 
 import random
 import itertools
+import math
 import grammar as gram
 from grammar.runcontroller import opMap
 
@@ -192,7 +193,7 @@ def selectTwo(pool,cumWeights):
 # returns a weighted, random list index
 ###
 def selectIndex(cumWeights):
-    select = random.randint(0,max(cumWeights))
+    select = random.uniform(0,max(cumWeights))
     i = -1
     done = False
     while i < len(cumWeights) and not done:

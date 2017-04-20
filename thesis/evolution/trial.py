@@ -73,7 +73,7 @@ def print_results(erun):
     avg_score = sum(final_scores)/len(final_scores)
     print("="*65)
     print("Final Results:")
-    print("ID: {}".format(runID))
+    print("ID: {}".format(erun.runID()))
     print("\tTop Fitness Score: {}".format(erun.getAlpha_score()))
 #    print("\tAverage Fitness: {}".format(avg_score))
     print("="*65)

@@ -83,7 +83,7 @@ class EvoRun:
     ##
     # returns a list containing all of the alpha individuals for every generation
     ##
-    def getHistory(self):
+    def history(self):
         return self.tops
     
     ##
@@ -94,7 +94,7 @@ class EvoRun:
         #print("Propagating Generation {}".format(self.generation))
         scores = self.applySearch()
         self.population = ops.propagate(scores)
-        self.tops += self.getAlpha_individual(scores)
+        self.tops.append(self.getAlpha_individual(scores))
         self.generation += 1
         self.mature = False
 

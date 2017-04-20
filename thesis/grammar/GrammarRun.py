@@ -114,3 +114,19 @@ class GrammarRun:
         genes = self.productions.copy()
         del genes["none"]
         return genes
+
+    ###
+    # returns a list containing tuples of the min/max values for x,y,z
+    ###
+    def getBounds(self):
+        vertlist = [vert for face in self.getFaces() for vert in face.getVertices()]
+        xlist = [vert[0] for vert in vertlist]
+        ylist = [vert[1] for vert in vertlist]
+        zlist = [vert[2] for vert in vertlist]
+        xMax = max(xlist)
+        xMin = min(xlist)
+        yMax = max(ylist)
+        yMin = min(ylist)
+        zMax = max(zlist)
+        zMin = min(zlist)
+        return [(xMin,xMax),(yMin,yMax),(zMin,zMax)]

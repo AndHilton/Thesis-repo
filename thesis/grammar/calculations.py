@@ -39,7 +39,6 @@ def isVert_inList(avert,vertlist):
         idx += 1
     return found
 
-
 ###
 # calculates a tuple of two points that would be extensions of the face
 # defined by the list of points given
@@ -136,3 +135,15 @@ def isSameSide(p1,p2,a,b):
     cross1 = np.cross(b-a,p1-a)
     cross2 = np.cross(b-a,p2-a)
     return np.dot(cross1,cross2) >= 0
+
+
+###
+# returns the volume of the bounding box around a GrammarRun
+###
+def grammarBoundsVolume(gRun):
+    bounds = gRun.getBounds()
+    dims = [pair[1] - pair[0] for pair in bounds]
+    vol = 1
+    for scale in dims:
+        vol *= scale
+    return vol
