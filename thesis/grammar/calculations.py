@@ -10,6 +10,8 @@ import math
 
 
 THRESHOLD = 10**(-12)
+HEIGHT = math.sqrt(2/3)
+AREA = 1/2 * HEIGHT
 
 ###
 # calculates if 2 vertices are "equal" based on a default threshold
@@ -147,3 +149,18 @@ def grammarBoundsVolume(gRun):
     for scale in dims:
         vol *= scale
     return vol
+
+###
+# returns a list of faces that are on the surface of a grammar
+###
+def surfaceFaces(gRun):
+    faces = gRun.getFaces()
+    verts = [p for f in faces for p in f.getVerts()]
+    surface = [f for f in faces if f.growOut() not in verts]
+    return surface
+
+###
+# calculates the surface area of a grammar
+###
+def grammarArea(gRun):
+    return AREA * len(surfaceFaces(gRun))
