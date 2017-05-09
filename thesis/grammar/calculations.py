@@ -7,6 +7,7 @@ faces and whatnot
 
 import numpy as np
 import math
+from scipy import spatial
 
 
 THRESHOLD = 10**(-12)
@@ -155,8 +156,8 @@ def grammarBoundsVolume(gRun):
 ###
 def surfaceFaces(gRun):
     faces = gRun.getFaces()
-    verts = [p for f in faces for p in f.getVerts()]
-    surface = [f for f in faces if f.growOut() not in verts]
+    verts = [p for f in faces for p in f.getVertices()]
+    surface = [f for f in faces if not isVert_inList(f.growOut(),verts)]
     return surface
 
 ###
@@ -164,3 +165,11 @@ def surfaceFaces(gRun):
 ###
 def grammarArea(gRun):
     return AREA * len(surfaceFaces(gRun))
+
+###
+# finds the convex hull of a grammar (approximates the volume of the shape)
+###
+def convexHullVol(gRun):
+    allpoints = [p for f in gRun.getFaces() for p in f.getVertices()]
+    qhull = spatial.ConvexHull(allpoints)
+    return qhull.volume

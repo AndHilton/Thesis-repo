@@ -19,4 +19,4 @@ except ImportError:
 else:
     import file_tools
     import add_geometry
-import modeling.gramConversion
+from modeling.gramConversion import outputSTL

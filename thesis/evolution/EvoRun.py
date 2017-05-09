@@ -59,7 +59,7 @@ class EvoRun:
 
 
     ##
-x    # returns a list of the scores of a generation
+    # returns a list of the scores of a generation
     ##
     def getScores(self):
         pairs = self.applySearch()

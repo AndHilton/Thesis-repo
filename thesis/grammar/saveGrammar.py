@@ -29,7 +29,7 @@ def loadGrammar(filename):
 # Reads a GrammarRun in from a file and returns an instance of that grammar,
 # from 0 iterations
 ###
-def reloadGrammmar(filename):
+def reloadGrammar(filename):
     old = loadGrammar(filename)
     prods = old.productions
     faces = gram.facebuilder.buildDefaultTetra()
