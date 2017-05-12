@@ -20,6 +20,7 @@ import grammar.facebuilder
 import grammar.runcontroller
 import grammar.calculations
 from grammar.saveGrammar import saveGrammar,loadGrammar,reloadGrammar
+import grammar.calculations as geox
 
 
 __all__ = ['facebuilder','runcontroller','calculations','Face']
