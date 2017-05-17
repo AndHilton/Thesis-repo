@@ -1,0 +1,20 @@
+#!/bin/bash
+### =================================================================
+##
+##  Submits a trial script as a job to be run
+##
+### =================================================================
+
+script=$1
+name=${script%.*}
+
+if [ -e $script ]; then
+    echo "submitting script ${script} as a job"
+else
+    echo "script does not exist"
+    exit 1
+fi
+
+qsub -d ./ -o ${name}_output -v SCRIPT=$script run-trial.sh 
+
+
