@@ -16,5 +16,3 @@ else
 fi
 
 qsub -d ./ -o ${name}_output -v SCRIPT=$script run-trial.sh 
-
-
