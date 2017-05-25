@@ -10,4 +10,4 @@ import grammar as gram
 # Optimizes for maximum ConvexHull volume
 ###
 def maxConvexVol(grun):
-    return geo.convexHullVol(grun)
+    return gram.geo.convexHullVol(grun)
