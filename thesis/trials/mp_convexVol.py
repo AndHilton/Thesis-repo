@@ -15,7 +15,7 @@ def main():
     gens = 50
     pop = 50
     t = 10
-    ffun = trials.maxConvexHull
+    ffun = trials.maxConvexVol
     erun = mp_evo.executeRun(ffun,gens,pop,t)
 
     trials.trialTools.outfile(erun,"convexhull")

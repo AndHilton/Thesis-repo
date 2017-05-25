@@ -8,6 +8,6 @@ Module contains:
 """
 ### -----------------------------------------------------------------
 
-from trial.fitnessFunction import *
-import trial.trialTools
+from trials.fitnessFunctions import *
+import trials.trialTools
 
