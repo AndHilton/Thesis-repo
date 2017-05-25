@@ -15,4 +15,8 @@ else
     exit 1
 fi
 
-qsub -d ./ -o ${name}_output -v SCRIPT=$script run-trial.sh 
+qsub -d ./ -o ${name}_output -v SCRIPT=${script} hello.sh
+#qsub -d ./ -o ${name}_output -v SCRIPT=$script ./run-trial.sh
+#qsub -d ./ -o ${name}_output -V run-trial.sh
+
+echo Done!
