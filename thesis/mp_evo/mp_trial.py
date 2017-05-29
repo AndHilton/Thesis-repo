@@ -11,6 +11,7 @@ Author : AHilton
 ### -----------------------------------------------------------------
 
 import mp_evo
+import evolution as evo
 import modeling as model
 import grammar as gram
 import multiprocessing as mp
@@ -25,7 +26,7 @@ MATURITY = 10
 # returns the run at the end
 ###
 def executeRun(hFun,gen = GENERATION,pop = POPULATION,mature = MATURITY):
-    procs = cpu_count()
+    procs = mp.cpu_count()
     run = mp_evo.MP_EvoRun(hFun,mature,pop,procs)
     print_run_metrics(gen,pop,mature)
     run.nGeneration(gen)

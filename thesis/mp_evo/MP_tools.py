@@ -26,4 +26,4 @@ def matureIndv(bundle):
 def evaluateIndv(bundle):
     fun = bundle[1]
     indv = bundle[0]
-    return fun(indv)
+    return (indv,fun(indv))

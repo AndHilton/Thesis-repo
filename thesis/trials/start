@@ -6,6 +6,7 @@
 ### =================================================================
 
 script=$1
+tag=$2
 name=${script%.*}
 
 if [ -e $script ]; then
@@ -15,8 +16,6 @@ else
     exit 1
 fi
 
-qsub -d ./ -o ${name}_output -v SCRIPT=${script} hello.sh
-#qsub -d ./ -o ${name}_output -v SCRIPT=$script ./run-trial.sh
-#qsub -d ./ -o ${name}_output -V run-trial.sh
+qsub -d ./ -o ${name}_${tag}.out -v SCRIPT=${script} hello.sh
 
-echo Done!
+echo Output will be written to ${name}_${tag}.out

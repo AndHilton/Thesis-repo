@@ -12,9 +12,9 @@ import trials
 
 def main():
 
-    gens = 50
-    pop = 50
-    t = 10
+    gens = 25
+    pop = 20
+    t = 8
     ffun = trials.maxConvexVol
     erun = mp_evo.executeRun(ffun,gens,pop,t)
 
