@@ -93,7 +93,7 @@ class EvoRun:
         self.maturePopulation()
         #print("Propagating Generation {}".format(self.generation))
         scores = self.applySearch()
-        self.population = ops.propagate(scores)
+        self.population = ops.propagate(scores,self.id_num+self.generation)
         self.tops.append(self.getAlpha_individual(scores))
         self.generation += 1
         self.mature = False
