@@ -19,6 +19,7 @@ import grammar.GrammarRun as gRun
 import evolution.populate as pop
 import evolution.evoOps as ops
 import random
+import time
 
 #SEED_RANGE = 10 ** 5
 
@@ -34,6 +35,7 @@ class EvoRun:
 
     def __init__(self,hSearch,iterNum,k,seed=None):
         if seed is None:
+            random.seed(time.time())
             self.id_num = random.random()
         else:
             self.id_num = seed

@@ -28,3 +28,17 @@ def boundOverHullVol(grun):
 ###
 def minBoundedDensity(grun):
     return gram.geo.grammarBoundsVolume(grun) / len(grun.getFaces())
+
+###
+# returns the min hull density.  ^See Above
+###
+def minHullDensity(grun):
+    return gram.geo.convexHullVol(grun)/numFaces(grun)
+
+###
+# returns the number of faces
+###
+def numFaces(grun):
+    return len(grun.getFaces())
+
+

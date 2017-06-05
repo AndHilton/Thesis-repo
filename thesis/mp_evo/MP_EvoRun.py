@@ -13,6 +13,9 @@ import grammar as gram
 import evolution as evo
 import mp_evo
 import multiprocessing as mp
+import random
+import os
+import time
 
 class MP_EvoRun (evo.EvoRun):
 
@@ -23,6 +26,8 @@ class MP_EvoRun (evo.EvoRun):
 
     def __init__(self,hSearch,iterNum,k,seed=None,procnum=1):
         super().__init__(hSearch,iterNum,k,seed)
+        random.seed(time.time())
+        self.id_Num = random.random()
         self.pPool = mp.Pool(procnum)
 
     ##
@@ -40,3 +45,5 @@ class MP_EvoRun (evo.EvoRun):
     def applySearch(self):
         bundle = [(gram,self.searchFun) for gram in self.population]
         return self.pPool.map(mp_evo.MP_tools.evaluateIndv,bundle)
+
+    
